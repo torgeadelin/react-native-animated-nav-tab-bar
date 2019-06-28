@@ -5,7 +5,7 @@
 # react-native-animated-nav-tab-bar
 A simple and customisable  React Native component that implements an animated bottom tab bar for React Navigation.
 
-## Instalation
+## Installation
 If using yarn
 ```
 yarn add react-native-animated-nav-tab-bar
