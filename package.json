@@ -1,0 +1,39 @@
+{
+  "name": "react-native-animated-tab-bar",
+  "version": "1.0.0",
+  "description": "Animated React Native TabBar Component for React Navigation",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/torgeadelin/react-native-animated-tab-bar.git"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "react-component",
+    "react-navigation",
+    "navigation",
+    "ios",
+    "android",
+    "tab",
+    "tab-bar",
+    "bar",
+    "animation"
+  ],
+  "author": "Catalin Adelin Torge @torgeadelin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/torgeadelin/react-native-animated-tab-bar/issues"
+  },
+  "homepage": "https://github.com/torgeadelin/react-native-animated-tab-bar#readme",
+  "devDependencies": {
+    "metro-react-native-babel-preset": "^0.54.1"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "styled-components": "^4.3.2"
+  }
+}
