@@ -7,7 +7,7 @@ A simple and customisable React Native component that implements an animated bot
 - Support for iPhoneX
 
 ## Preview
-[](https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/react-native-animated-nav-tob-ba.gif)
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/react-native-animated-nav-tob-ba.gif" width="300">
 
 ## Prerequisites
 ❗️In order to use the component, you need to have installed [React Navigation](https://reactnavigation.org/)
