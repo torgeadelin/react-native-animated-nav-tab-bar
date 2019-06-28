@@ -57,24 +57,25 @@ ProfileStack.navigationOptions = {
 }
 
 
-export default createAppContainer(createBottomTabNavigator(
-    {
-        Home: HomeStack,
-        Discover: DiscoverStack,
-        Images: ImagesStack,
-        Profie: ProfileStack,
+export default createAppContainer(
+    createBottomTabNavigator(
+        {
+            Home: HomeStack,
+            Discover: DiscoverStack,
+            Images: ImagesStack,
+            Profie: ProfileStack,
 
-    }, {
-        tabBarOptions: {
-            activeTintColor: "#2B7C85",
-            inactiveTintColor: "#222222",
-        },
+        }, {
+            tabBarOptions: {
+                activeTintColor: "#2B7C85",
+                inactiveTintColor: "#222222",
+            },
 
-        tabBarComponent: props => <TabBar
-            {...props}
-        />,
-    }
-)
+            tabBarComponent: props => <TabBar
+                {...props}
+            />,
+        }
+    )
 )
 
 
