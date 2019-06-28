@@ -41,7 +41,15 @@ const ProfileStack = createStackNavigator({
 })
 
 HomeStack.navigationOptions = {
-    tabBarIcon: ({ focused, tintColor }) => <TabBarIcon focused={focused} tintColor={tintColor} name="home" />,
+    tabBarIcon: ({ focused, tintColor }) =>
+        <TabBarIcon
+            name={props.name}
+            size={props.size ? props.size : 24}
+            color={props.focused ? props.tintColor : "#222222"}
+            focused={focused}
+            tintColor={tintColor}
+            name="home"
+        />,
 }
 
 DiscoverStack.navigationOptions = {
