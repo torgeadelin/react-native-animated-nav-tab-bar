@@ -3,7 +3,14 @@
 [![HitCount](http://hits.dwyl.com/{username}/{project-name}.svg)](http://hits.dwyl.com/{username}/{project-name})
 
 # react-native-animated-nav-tab-bar
-A simple and customisable  React Native component that implements an animated bottom tab bar for React Navigation.
+A simple and customisable React Native component that implements an animated bottom tab bar for React Navigation. 
+- Support for iPhoneX
+
+## Preview
+[](https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/react-native-animated-nav-tob-ba.gif)
+
+## Prerequisites
+❗️In order to use the component, you need to have installed [React Navigation](https://reactnavigation.org/)
 
 ## Installation
 If using yarn
@@ -20,7 +27,7 @@ npm install react-native-animated-nav-tab-bar
 ```javascript
 import { TabBar } from 'react-native-animated-nav-tab-bar'
 ```
-Simply place a <TabBar /> tag in the tabBarComponent in the configuration option object of the navigation function
+Simply place a ```<TabBar />``` tag in the ```tabBarComponent``` in the configuration option object of the navigation function
 
 ```javascript
 ...
@@ -44,6 +51,32 @@ export default createAppContainer(
         }
     )
 )
+```
+
+Add icons to your Bottom Navigation
+To use this, you need [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
+
+Example
+```javascript
+import Icon from 'react-native-vector-icons/Feather';
+...
+
+const HomeStack = createStackNavigator({
+    Home: () => <View style={{flex:1 }}><Text>Home</Text></View>
+})
+
+HomeStack.navigationOptions = {
+    tabBarIcon: ({ focused, tintColor }) =>
+        <Icon
+            name={props.name}
+            size={props.size ? props.size : 24}
+            color={props.focused ? props.tintColor : "#222222"}
+            focused={focused}
+            tintColor={tintColor}
+            name="home"
+        />,
+}
+...
 ```
 
 ## Documentation
