@@ -10,7 +10,11 @@ A simple and customisable  React Native component that implements an animated bo
 
 ## Instalation
 If using yarn
-```yarn add react-native-animated-nav-tab-bar```
+```
+yarn add react-native-animated-nav-tab-bar
+```
 
 If using npm
-```npm install react-native-animated-nav-tab-bar
+```
+npm install react-native-animated-nav-tab-bar
+```
