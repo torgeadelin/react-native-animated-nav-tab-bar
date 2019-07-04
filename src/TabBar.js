@@ -143,7 +143,16 @@ export default class TabBar extends React.Component {
                                 }
                             }}
                             onLongPress={() => {
-                                onTabLongPress({ route });
+                                if (!isRouteActive) {
+                                    this.animation(this.state.animatedPos).start(() => {
+                                        this.setState({
+                                            prevPos: this.state.pos,
+                                        })
+                                        this.state.animatedPos.setValue(0)
+                                    })
+                                    onTabLongPress({ route });
+                                }
+
                             }}
                             accessibilityLabel={getAccessibilityLabel({ route })}
                         >
