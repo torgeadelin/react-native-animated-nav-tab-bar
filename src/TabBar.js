@@ -76,7 +76,6 @@ export default class TabBar extends React.Component {
         const {
             renderIcon,
             getLabelText,
-            activeTintColor,
             inactiveTintColor,
             onTabPress,
             onTabLongPress,
@@ -86,14 +85,16 @@ export default class TabBar extends React.Component {
 
         const {
             verticalPadding,
-            activeTabBackground,
             tabBarBackground,
             shadow,
             topPadding,
+            activeColors,
+            activeTabBackgrounds,
         } = this.props
 
         const { routes, index: activeRouteIndex } = navigation.state;
-
+        const activeTabBackground = activeTabBackgrounds ? Array.isArray(activeTabBackgrounds) ? activeTabBackgrounds[activeRouteIndex] || "#E4F7F7" : activeTabBackgrounds : "#E4F7F7"
+        const activeColor = activeColors ? Array.isArray(activeColors) ? activeColors[activeRouteIndex] || "#000" : activeColors : "#000"
         return (
             <Wrapper
                 topPadding={topPadding}
@@ -103,12 +104,14 @@ export default class TabBar extends React.Component {
             >
                 {routes.map((route, routeIndex) => {
                     const isRouteActive = routeIndex === activeRouteIndex;
-                    const tintColor = isRouteActive ? activeTintColor : inactiveTintColor;
+                    const tintColor = isRouteActive ? activeColor : inactiveTintColor;
+                    const labelText = getLabelText({ route })
                     const labelLength = getLabelText({ route }).length
                     const tabHasIcon = renderIcon({ route, focused: isRouteActive, tintColor }) != null
+
                     //Render Label if tab is selected or if there is no icon
                     const renderLabel = () => {
-                        const label = <Label icon={tabHasIcon} activeColor={tintColor}>{getLabelText({ route })}</Label>
+                        const label = <Label icon={tabHasIcon} activeColor={activeColor}>{labelText}</Label>
                         if (isRouteActive) {
                             return label
                         } else if (!isRouteActive && !tabHasIcon) {
