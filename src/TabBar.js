@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components/native'
 import { isIphoneX } from './utils/iPhoneX'
-import { Animated, View } from 'react-native'
+import { Animated, View, BackHandler, Platform } from 'react-native'
 import PropTypes from 'prop-types';
 
 //Wrapper
@@ -63,14 +63,32 @@ export default class TabBar extends React.Component {
         toValue: 1,
     })
 
-    componentDidMount() {
-        this.animation(this.state.animatedPos).start(() => {
-            this.setState({
-                prevPos: this.props.verticalPadding
-            })
-            this.state.animatedPos.setValue(0)
-        })
+  componentDidMount() {
+    this.animation(this.state.animatedPos).start(() => {
+      this.setState({
+        prevPos: this.props.verticalPadding,
+      });
+      this.state.animatedPos.setValue(0);
+    });
+    if(Platform.OS === 'android'){
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     }
+  }
+
+  componentWillUnmount() {
+    if(Platform.OS === 'android'){
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+    }
+  }
+
+  handleBackPress = () => {
+    this.animation(this.state.animatedPos).start(() => {
+      this.setState({
+        prevPos: this.state.pos,
+      });
+      this.state.animatedPos.setValue(0);
+    });
+  };
 
     render() {
         const {

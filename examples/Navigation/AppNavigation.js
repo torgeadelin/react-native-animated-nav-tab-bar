@@ -4,7 +4,7 @@ import { View, Text } from 'react-native'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import Icon from 'react-native-vector-icons/Feather';
 import styled from 'styled-components/native'
-import { TabBar } from 'react-native-animated-tab-bar'
+import { TabBar } from 'react-native-animated-nav-tab-bar'
 
 const Screen = styled.View`
     flex: 1;
@@ -66,15 +66,17 @@ export default createAppContainer(
             Profie: ProfileStack,
 
         }, {
-            tabBarOptions: {
-                activeTintColor: "#2B7C85",
-                inactiveTintColor: "#222222",
-            },
+        tabBarOptions: {
+            activeTintColor: "#2F7C6E",
+            inactiveTintColor: "#222222",
+        },
 
-            tabBarComponent: props => <TabBar
-                {...props}
-            />,
-        }
+        tabBarComponent: props => <TabBar
+            activeColors={'#2F7C6E'}
+            activeTabBackgrounds={'#DFF7F6'}
+            {...props}
+        />,
+    }
     )
 )
 
