@@ -108,9 +108,10 @@ export default class TabBar extends React.Component {
             topPadding,
             activeColors,
             activeTabBackgrounds,
+            routes
         } = this.props
 
-        const { routes, index: activeRouteIndex } = navigation.state;
+        const { index: activeRouteIndex } = navigation.state;
         const activeTabBackground = activeTabBackgrounds ? Array.isArray(activeTabBackgrounds) ? activeTabBackgrounds[activeRouteIndex] || "#E4F7F7" : activeTabBackgrounds : "#E4F7F7"
         const activeColor = activeColors ? Array.isArray(activeColors) ? activeColors[activeRouteIndex] || "#000" : activeColors : "#000"
         return (
