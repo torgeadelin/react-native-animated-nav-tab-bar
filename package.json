@@ -34,7 +34,6 @@
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "react-native-animated-nav-tab-bar": "^1.0.4",
     "styled-components": "^4.3.2"
   }
 }
