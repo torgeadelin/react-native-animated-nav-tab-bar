@@ -15,7 +15,7 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "~0.61.4",
-    "react-native-animated-nav-tab-bar": "file:../react-native-animated-nav-tab-bar-2.0.0.tgz",
+    "react-native-animated-nav-tab-bar": "../",
     "react-native-gesture-handler": "^1.5.6",
     "react-native-reanimated": "^1.7.0",
     "react-native-safe-area-context": "^0.7.2",

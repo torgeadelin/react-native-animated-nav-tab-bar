@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { Text } from "react-native";
+import { TabBar } from "react-native-animated-nav-tab-bar";
 import Icon from "react-native-vector-icons/Feather";
 import styled from "styled-components/native";
-import { TabBar } from 'react-native-animated-nav-tab-bar'
 
 const Screen = styled.View`
   flex: 1;
@@ -46,24 +46,25 @@ const Profile = () => (
   </Screen>
 );
 
-
 // }
 
 const Tabs = createBottomTabNavigator();
 
 export default () => (
   <Tabs.Navigator
-  options={{
-    tabBarOptions: {
+    options={{
+      tabBarOptions: {
         activeTintColor: "#2F7C6E",
-        inactiveTintColor: "#222222",
-    },
-    tabBarComponent: props => <TabBar
-        activeColors={'#2F7C6E'}
-        activeTabBackgrounds={'#DFF7F6'}
-        {...props}
-    />
-  }}
+        inactiveTintColor: "#222222"
+      },
+      tabBarComponent: props => (
+        <TabBar
+          activeColors={"#2F7C6E"}
+          activeTabBackgrounds={"#DFF7F6"}
+          {...props}
+        />
+      )
+    }}
   >
     <Tabs.Screen
       name="Home"
