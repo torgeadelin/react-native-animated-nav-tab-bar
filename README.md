@@ -52,9 +52,8 @@ export default () => (
     }}
     tabBar={props => (
       <TabBar
-                activeColors={['#e6b580', '#8e87d6', '#c095c9']} // or activeColors={'#e6b580'}
-                activeTabBackgrounds={['#ede7e6', '#eae3f6', '#eae4f6']} // or activeTabBackgrounds={'#ede7e6'}
-                {...props}
+        activeColors={['#e6b580', '#8e87d6', '#c095c9']} // or activeColors={'#e6b580'}
+        activeTabBackgrounds={['#ede7e6', '#eae3f6', '#eae4f6']} // or activeTabBackgrounds={'#ede7e6'}
         {...props}
       />
     )}
@@ -71,21 +70,36 @@ Example
 import Icon from 'react-native-vector-icons/Feather';
 ...
 
-const HomeStack = createStackNavigator({
-    Home: () => <View style={{flex:1 }}><Text>Home</Text></View>
-})
-
-HomeStack.navigationOptions = {
-    tabBarIcon: ({ focused, tintColor }) =>
-        <Icon
-            name={props.name}
-            size={props.size ? props.size : 24}
-            color={props.focused ? props.tintColor : "#222222"}
-            focused={focused}
-            tintColor={tintColor}
-            name="home"
-        />,
-}
+export default () =>
+  <Tabs.Navigator
+    tabBarOptions={{
+      activeTintColor: "#2F7C6E",
+      inactiveTintColor: "#222222"
+    }}
+    tabBar={props => (
+      <TabBar
+        activeColors={"#2F7C6E"}
+        activeTabBackgrounds={"#DFF7F6"}
+        {...props}
+      />
+    )}
+  >
+    <Tabs.Screen
+      name="Home"
+      component={Home}
+      options={{
+        tabBarIcon: ({ focused, color, size }) => (
+            <Icon
+                name="Home"
+                size={size ? size : 24}
+                color={focused ? color : "#222222"}
+                focused={focused}
+                color={color}
+            />
+        )
+      }}
+    />
+    </Tabs.Navigator>
 ...
 ```
 
