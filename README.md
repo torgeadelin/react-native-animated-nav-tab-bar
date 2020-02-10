@@ -37,32 +37,29 @@ npm install react-native-animated-nav-tab-bar
 import { TabBar } from "react-native-animated-nav-tab-bar";
 ```
 
-Simply place a `<TabBar />` tag in the `tabBarComponent` in the configuration option object of the navigation function
+Simply place a `<TabBar />` tag in the `tabBar` in the configuration option object of the navigation function
 
 ```javascript
 ...
-export default createAppContainer(
-    createBottomTabNavigator(
-        {
-            Home: HomeStack,
-            Discover: DiscoverStack,
-            Images: ImagesStack,
-            Profie: ProfileStack,
 
-        }, {
-            tabBarOptions: {
-                activeTintColor: "#2B7C85",
-                inactiveTintColor: "#222222",
-            },
+const Tabs = createBottomTabNavigator();
 
-            tabBarComponent: props => <TabBar
+export default () => (
+  <Tabs.Navigator
+    tabBarOptions={{
+      activeTintColor: "#2F7C6E",
+      inactiveTintColor: "#222222"
+    }}
+    tabBar={props => (
+      <TabBar
                 activeColors={['#e6b580', '#8e87d6', '#c095c9']} // or activeColors={'#e6b580'}
                 activeTabBackgrounds={['#ede7e6', '#eae3f6', '#eae4f6']} // or activeTabBackgrounds={'#ede7e6'}
                 {...props}
-            />,
-        }
-    )
-)
+        {...props}
+      />
+    )}
+  >
+  </Tabs.Navigator>
 ```
 
 Add icons to your Bottom Navigation
