@@ -46,32 +46,57 @@ const Dot = styled(Animated.View)`
   z-index: -1;
 `;
 
-export default class TabBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      prevPos: this.props.verticalPadding,
-      pos: 0,
-      width: 0,
-      height: 0,
-      animatedPos: new Animated.Value(1)
-    };
-  }
+export default TabBar = ({
+  verticalPadding,
+  topPadding,
+  tabBarBackground,
+  shadow,
+  selectedIndex,
+  descriptors,
+  state: navigationState
+}) => {
+  const [prevPos, setPrevPos] = React.useState(verticalPadding);
+  const [pos, setPos] = React.useState(0);
+  const [width, setWidth] = React.useState(0);
+  const [height, setHeight] = React.useState(0);
+  const [animatedPos, setAnimatedPos] = React.useState(
+    () => new Animated.Value(1)
+  );
 
-  animation = value =>
-    Animated.spring(value, {
+  const animation = val =>
+    Animated.spring(val, {
       toValue: 1
     });
 
-  componentDidMount() {
-    this.animation(this.state.animatedPos).start(() => {
-      this.setState({
-        prevPos: this.props.verticalPadding
-      });
-      this.state.animatedPos.setValue(0);
+  React.useEffect(() => {
+    animation(animatedPos).start(() => {
+      setPrevPos(verticalPadding);
     });
-  }
+    animatedPos.setValue(0);
+  }, []);
 
+  const createTab = (route, routeIndex) => {
+    const focused = routeIndex == selectedIndex;
+    const { options } = descriptors[route.key];
+
+    return (
+      <TabButton key={route.key}>{options.tabBarIcon({ focused })}</TabButton>
+    );
+  };
+
+  return (
+    <Wrapper
+      topPadding={topPadding}
+      verticalPadding={verticalPadding}
+      tabBarBackground={tabBarBackground}
+      shadow={shadow}
+    >
+      {navigationState.routes.map(createTab)}
+    </Wrapper>
+  );
+};
+
+class _ extends React.Component {
   render() {
     const {
       inactiveTintColor,
