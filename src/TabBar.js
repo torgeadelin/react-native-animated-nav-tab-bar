@@ -1,12 +1,12 @@
-import PropTypes from "prop-types"
-import React from "react"
-import { Animated, View } from "react-native"
-import styled, { css } from "styled-components/native"
-import { isIphoneX } from "./utils/iPhoneX"
+import PropTypes from "prop-types";
+import React from "react";
+import { Animated, View } from "react-native";
+import styled, { css } from "styled-components/native";
+import { isIphoneX } from "./utils/iPhoneX";
 
 //Wrapper
-const BOTTOM_PADDING = 10
-const BOTTOM_PADDING_IPHONE_X = 30
+const BOTTOM_PADDING = 10;
+const BOTTOM_PADDING_IPHONE_X = 30;
 
 const Wrapper = styled.View`
   position: relative;
@@ -18,7 +18,7 @@ const Wrapper = styled.View`
   padding-horizontal: ${p => p.verticalPadding};
   background-color: ${p => p.tabBarBackground};
   ${p => p.shadow && SHADOW};
-`
+`;
 
 const TabButton = styled.TouchableOpacity`
   flex: 1;
@@ -28,13 +28,13 @@ const TabButton = styled.TouchableOpacity`
   border-radius: 100;
   padding-vertical: 10;
   flex-grow: ${p => (p.isRouteActive ? p.labelLength / 10 + 1 : 1)};
-`
+`;
 
 const Label = styled(Animated.Text)`
   color: ${p => p.activeColor};
   font-weight: bold;
   margin-left: ${p => (p.icon ? 8 : 0)};
-`
+`;
 
 const Dot = styled(Animated.View)`
   position: absolute;
@@ -44,32 +44,32 @@ const Dot = styled(Animated.View)`
   border-radius: 100;
   background-color: ${p => p.activeTabBackground};
   z-index: -1;
-`
+`;
 
 export default class TabBar extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       prevPos: this.props.verticalPadding,
       pos: 0,
       width: 0,
       height: 0,
       animatedPos: new Animated.Value(1)
-    }
+    };
   }
 
   animation = value =>
     Animated.spring(value, {
       toValue: 1
-    })
+    });
 
   componentDidMount() {
     this.animation(this.state.animatedPos).start(() => {
       this.setState({
         prevPos: this.props.verticalPadding
-      })
-      this.state.animatedPos.setValue(0)
-    })
+      });
+      this.state.animatedPos.setValue(0);
+    });
   }
 
   render() {
@@ -86,19 +86,19 @@ export default class TabBar extends React.Component {
       showLabel = true,
       activeColors,
       activeTabBackgrounds
-    } = this.props
+    } = this.props;
 
     // const { routes, index: activeRouteIndex } = navigation.state;
     const activeTabBackground = activeTabBackgrounds
       ? Array.isArray(activeTabBackgrounds)
         ? activeTabBackgrounds[state.index] || "#E4F7F7"
         : activeTabBackgrounds
-      : "#E4F7F7"
+      : "#E4F7F7";
     const activeColor = activeColors
       ? Array.isArray(activeColors)
         ? activeColors[state.index] || "#000"
         : activeColors
-      : "#000"
+      : "#000";
     return (
       <Wrapper
         topPadding={topPadding}
@@ -107,42 +107,42 @@ export default class TabBar extends React.Component {
         shadow={shadow}
       >
         {state.routes.map((route, routeIndex) => {
-          const isRouteActive = routeIndex === state.index
-          const tintColor = isRouteActive ? activeColor : inactiveTintColor
+          const isRouteActive = routeIndex === state.index;
+          const tintColor = isRouteActive ? activeColor : inactiveTintColor;
 
-          const { options } = descriptors[route.key]
+          const { options } = descriptors[route.key];
           const labelText =
             options.tabBarLabel !== undefined
               ? options.tabBarLabel
               : options.title !== undefined
               ? options.title
-              : route.name
+              : route.name;
 
-          const renderIcon = options.tabBarIcon
-          const accessibilityLabel = options.tabBarAccessibilityLabel
+          const renderIcon = options.tabBarIcon;
+          const accessibilityLabel = options.tabBarAccessibilityLabel;
 
-          const labelLength = labelText.length
+          const labelLength = labelText.length;
           const icon =
             renderIcon &&
-            renderIcon({ route, focused: isRouteActive, tintColor })
+            renderIcon({ route, focused: isRouteActive, tintColor });
 
           const onTabPress = () => {
             const event = navigation.emit({
               type: "tabPress",
               target: route.key
-            })
+            });
 
             if (!isRouteActive && !event.defaultPrevented) {
-              navigation.navigate(route.name)
+              navigation.navigate(route.name);
             }
-          }
+          };
 
           const onTabLongPress = () => {
             navigation.emit({
               type: "tabLongPress",
               target: route.key
-            })
-          }
+            });
+          };
 
           //Render Label if tab is selected or if there is no icon
           const renderLabel = () => {
@@ -150,15 +150,15 @@ export default class TabBar extends React.Component {
               <Label icon={showIcon && renderIcon} activeColor={activeColor}>
                 {labelText}
               </Label>
-            )
+            );
             if (isRouteActive) {
-              return label
+              return label;
             } else if (!isRouteActive && !showIcon && renderIcon) {
-              return label
+              return label;
             } else {
-              return
+              return;
             }
-          }
+          };
           return (
             <TabButton
               icon={icon}
@@ -169,7 +169,7 @@ export default class TabBar extends React.Component {
                     pos: event.nativeEvent.layout.x,
                     width: event.nativeEvent.layout.width,
                     height: event.nativeEvent.layout.height
-                  })
+                  });
               }}
               isRouteActive={isRouteActive}
               key={routeIndex}
@@ -178,10 +178,10 @@ export default class TabBar extends React.Component {
                   this.animation(this.state.animatedPos).start(() => {
                     this.setState({
                       prevPos: this.state.pos
-                    })
-                    this.state.animatedPos.setValue(0)
-                  })
-                  onTabPress({ route })
+                    });
+                    this.state.animatedPos.setValue(0);
+                  });
+                  onTabPress({ route });
                 }
               }}
               onLongPress={() => {
@@ -189,10 +189,10 @@ export default class TabBar extends React.Component {
                   this.animation(this.state.animatedPos).start(() => {
                     this.setState({
                       prevPos: this.state.pos
-                    })
-                    this.state.animatedPos.setValue(0)
-                  })
-                  onTabLongPress({ route })
+                    });
+                    this.state.animatedPos.setValue(0);
+                  });
+                  onTabLongPress({ route });
                 }
               }}
               accessibilityLabel={accessibilityLabel}
@@ -203,7 +203,7 @@ export default class TabBar extends React.Component {
               </View>
               {showLabel && renderLabel()}
             </TabButton>
-          )
+          );
         })}
         <Dot
           topPadding={topPadding}
@@ -218,11 +218,11 @@ export default class TabBar extends React.Component {
           height={this.state.height}
         />
       </Wrapper>
-    )
+    );
   }
 }
 
-w
+w;
 //Shadow
 const SHADOW = css`
   shadow-color: #000000;
@@ -230,7 +230,7 @@ const SHADOW = css`
   shadow-opacity: 0.05;
   elevation: 1;
   shadow-radius: 20;
-`
+`;
 
 TabBar.propTypes = {
   activeTabBackground: PropTypes.string.isRequired,
@@ -238,7 +238,7 @@ TabBar.propTypes = {
   shadow: PropTypes.bool.isRequired,
   verticalPadding: PropTypes.number.isRequired,
   topPadding: PropTypes.number.isRequired
-}
+};
 
 TabBar.defaultProps = {
   activeTabBackground: "#E4F7F7",
@@ -246,4 +246,4 @@ TabBar.defaultProps = {
   shadow: true,
   verticalPadding: 10,
   topPadding: 10
-}
+};
