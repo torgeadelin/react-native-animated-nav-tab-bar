@@ -99,17 +99,17 @@ export default TabBar = ({
 
   const activeTabBackground = activeTabBackgrounds
     ? Array.isArray(activeTabBackgrounds)
-      ? activeTabBackgrounds[state.index] || "#E4F7F7"
+      ? activeTabBackgrounds[navigationState.index] || "#E4F7F7"
       : activeTabBackgrounds
     : "#E4F7F7";
   const activeColor = activeColors
     ? Array.isArray(activeColors)
-      ? activeColors[state.index] || "#000"
+      ? activeColors[navigationState.index] || "#000"
       : activeColors
     : "#000";
 
   const createTab = (route, routeIndex) => {
-    const focused = routeIndex == selectedIndex;
+    const focused = routeIndex == navigationState.index;
     const { options } = descriptors[route.key];
 
     // https://github.com/react-navigation/react-navigation/blob/master/packages/bottom-tabs/src/views/BottomTabBar.tsx#L221-L233
@@ -134,7 +134,7 @@ export default TabBar = ({
 
       if (typeof label === "string" && focused) {
         return (
-          <Label icon={showIcon && renderIcon} activeColor={activeColor}>
+          <Label icon={showIcon} activeColor={activeColor}>
             {label}
           </Label>
         );
