@@ -192,6 +192,13 @@ export default TabBar = ({
         isRouteActive={focused}
         labelLength={label.length}
         accessibilityLabel={accessibilityLabel}
+        onLayout={e => {
+          if (focused) {
+            setPos(e.nativeEvent.layout.x);
+            setWidth(e.nativeEvent.layout.width);
+            setHeight(e.nativeEvent.layout.height);
+          }
+        }}
         onPress={onPress}
         onLongPress={onLongPress}
       >
