@@ -64,9 +64,7 @@ export default TabBar = ({
   const [pos, setPos] = React.useState(0);
   const [width, setWidth] = React.useState(0);
   const [height, setHeight] = React.useState(0);
-  const [animatedPos, setAnimatedPos] = React.useState(
-    () => new Animated.Value(1)
-  );
+  const [animatedPos] = React.useState(() => new Animated.Value(1));
 
   const animation = val =>
     Animated.spring(val, {
