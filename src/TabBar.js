@@ -222,7 +222,6 @@ export default class TabBar extends React.Component {
   }
 }
 
-w;
 //Shadow
 const SHADOW = css`
   shadow-color: #000000;

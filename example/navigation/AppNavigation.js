@@ -3,7 +3,7 @@ import React from "react";
 import { Text } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import styled from "styled-components/native";
-// import { TabBar } from 'react-native-animated-nav-tab-bar'
+import { TabBar } from 'react-native-animated-nav-tab-bar'
 
 const Screen = styled.View`
   flex: 1;
@@ -46,23 +46,25 @@ const Profile = () => (
   </Screen>
 );
 
-//     {
-//     tabBarOptions: {
-//         activeTintColor: "#2F7C6E",
-//         inactiveTintColor: "#222222",
-//     },
 
-//     tabBarComponent: props => <TabBar
-//         activeColors={'#2F7C6E'}
-//         activeTabBackgrounds={'#DFF7F6'}
-//         {...props}
-//     />,
 // }
 
 const Tabs = createBottomTabNavigator();
 
 export default () => (
-  <Tabs.Navigator>
+  <Tabs.Navigator
+  options={{
+    tabBarOptions: {
+        activeTintColor: "#2F7C6E",
+        inactiveTintColor: "#222222",
+    },
+    tabBarComponent: props => <TabBar
+        activeColors={'#2F7C6E'}
+        activeTabBackgrounds={'#DFF7F6'}
+        {...props}
+    />
+  }}
+  >
     <Tabs.Screen
       name="Home"
       component={Home}
