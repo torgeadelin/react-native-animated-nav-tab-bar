@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Animated, View } from "react-native";
+import { Animated, BackHandler, View } from "react-native";
 import styled, { css } from "styled-components/native";
 import { isIphoneX } from "./utils/iPhoneX";
 
@@ -49,10 +49,15 @@ const Dot = styled(Animated.View)`
 export default TabBar = ({
   verticalPadding,
   topPadding,
+  tintColor,
   tabBarBackground,
   shadow,
   selectedIndex,
   descriptors,
+  showIcon = true,
+  showLabel = true,
+  activeColors,
+  activeTabBackgrounds,
   state: navigationState
 }) => {
   const [prevPos, setPrevPos] = React.useState(verticalPadding);
@@ -68,19 +73,96 @@ export default TabBar = ({
       toValue: 1
     });
 
-  React.useEffect(() => {
+  handleBackPress = () => {
     animation(animatedPos).start(() => {
-      setPrevPos(verticalPadding);
+      setPrevPos(pos);
     });
     animatedPos.setValue(0);
+  };
+
+  React.useEffect(() => {
+    animation(animatedPos).start(() => {
+      setPrevPos(pos);
+    });
+    animatedPos.setValue(0);
+
+    if (Platform.OS === "android") {
+      BackHandler.addEventListener("hardwareBackPress", handleBackPress);
+    }
+
+    return () => {
+      if (Platform.OS === "android") {
+        BackHandler.removeEventListener("hardwareBackPress", handleBackPress);
+      }
+    };
   }, []);
+
+  const activeTabBackground = activeTabBackgrounds
+    ? Array.isArray(activeTabBackgrounds)
+      ? activeTabBackgrounds[state.index] || "#E4F7F7"
+      : activeTabBackgrounds
+    : "#E4F7F7";
+  const activeColor = activeColors
+    ? Array.isArray(activeColors)
+      ? activeColors[state.index] || "#000"
+      : activeColors
+    : "#000";
 
   const createTab = (route, routeIndex) => {
     const focused = routeIndex == selectedIndex;
     const { options } = descriptors[route.key];
 
+    // https://github.com/react-navigation/react-navigation/blob/master/packages/bottom-tabs/src/views/BottomTabBar.tsx#L221-L233
+    const icon = options.tabBarIcon;
+    const label =
+      options.tabBarLabel !== undefined
+        ? options.tabBarLabel
+        : options.title !== undefined
+        ? options.title
+        : route.name;
+    const accessibilityLabel =
+      options.tabBarAccessibilityLabel !== undefined
+        ? options.tabBarAccessibilityLabel
+        : typeof label === "string"
+        ? `${label}, tab, ${routeIndex + 1} of ${navigationState.routes.length}`
+        : undefined;
+
+    const renderLabel = () => {
+      if (!showLabel) {
+        return null;
+      }
+
+      if (typeof label === "string" && focused) {
+        return (
+          <Label icon={showIcon && renderIcon} activeColor={activeColor}>
+            {label}
+          </Label>
+        );
+      }
+
+      if (focused) {
+        return label({ focused, color: activeColor });
+      }
+    };
+
+    const renderIcon = () => {
+      if (!showIcon || icon === undefined) {
+        return null;
+      }
+
+      return icon({ focused, color: tintColor });
+    };
+
     return (
-      <TabButton key={route.key}>{options.tabBarIcon({ focused })}</TabButton>
+      <TabButton
+        key={route.key}
+        isRouteActive={focused}
+        labelLength={label.length}
+        accessibilityLabel={accessibilityLabel}
+      >
+        <View>{renderIcon()}</View>
+        {renderLabel()}
+      </TabButton>
     );
   };
 
@@ -92,160 +174,21 @@ export default TabBar = ({
       shadow={shadow}
     >
       {navigationState.routes.map(createTab)}
+      <Dot
+        topPadding={topPadding}
+        activeTabBackground={activeTabBackground}
+        style={{
+          left: animatedPos.interpolate({
+            inputRange: [0, 1],
+            outputRange: [prevPos, pos]
+          })
+        }}
+        width={width}
+        height={height}
+      />
     </Wrapper>
   );
 };
-
-class _ extends React.Component {
-  render() {
-    const {
-      inactiveTintColor,
-      state,
-      descriptors,
-      navigation,
-      verticalPadding,
-      tabBarBackground,
-      shadow,
-      topPadding,
-      showIcon = true,
-      showLabel = true,
-      activeColors,
-      activeTabBackgrounds
-    } = this.props;
-
-    // const { routes, index: activeRouteIndex } = navigation.state;
-    const activeTabBackground = activeTabBackgrounds
-      ? Array.isArray(activeTabBackgrounds)
-        ? activeTabBackgrounds[state.index] || "#E4F7F7"
-        : activeTabBackgrounds
-      : "#E4F7F7";
-    const activeColor = activeColors
-      ? Array.isArray(activeColors)
-        ? activeColors[state.index] || "#000"
-        : activeColors
-      : "#000";
-    return (
-      <Wrapper
-        topPadding={topPadding}
-        verticalPadding={verticalPadding}
-        tabBarBackground={tabBarBackground}
-        shadow={shadow}
-      >
-        {state.routes.map((route, routeIndex) => {
-          const isRouteActive = routeIndex === state.index;
-          const tintColor = isRouteActive ? activeColor : inactiveTintColor;
-
-          const { options } = descriptors[route.key];
-          const labelText =
-            options.tabBarLabel !== undefined
-              ? options.tabBarLabel
-              : options.title !== undefined
-              ? options.title
-              : route.name;
-
-          const renderIcon = options.tabBarIcon;
-          const accessibilityLabel = options.tabBarAccessibilityLabel;
-
-          const labelLength = labelText.length;
-          const icon =
-            renderIcon &&
-            renderIcon({ route, focused: isRouteActive, tintColor });
-
-          const onTabPress = () => {
-            const event = navigation.emit({
-              type: "tabPress",
-              target: route.key
-            });
-
-            if (!isRouteActive && !event.defaultPrevented) {
-              navigation.navigate(route.name);
-            }
-          };
-
-          const onTabLongPress = () => {
-            navigation.emit({
-              type: "tabLongPress",
-              target: route.key
-            });
-          };
-
-          //Render Label if tab is selected or if there is no icon
-          const renderLabel = () => {
-            const label = (
-              <Label icon={showIcon && renderIcon} activeColor={activeColor}>
-                {labelText}
-              </Label>
-            );
-            if (isRouteActive) {
-              return label;
-            } else if (!isRouteActive && !showIcon && renderIcon) {
-              return label;
-            } else {
-              return;
-            }
-          };
-          return (
-            <TabButton
-              icon={icon}
-              labelLength={labelLength}
-              onLayout={event => {
-                isRouteActive &&
-                  this.setState({
-                    pos: event.nativeEvent.layout.x,
-                    width: event.nativeEvent.layout.width,
-                    height: event.nativeEvent.layout.height
-                  });
-              }}
-              isRouteActive={isRouteActive}
-              key={routeIndex}
-              onPress={() => {
-                if (!isRouteActive) {
-                  this.animation(this.state.animatedPos).start(() => {
-                    this.setState({
-                      prevPos: this.state.pos
-                    });
-                    this.state.animatedPos.setValue(0);
-                  });
-                  onTabPress({ route });
-                }
-              }}
-              onLongPress={() => {
-                if (!isRouteActive) {
-                  this.animation(this.state.animatedPos).start(() => {
-                    this.setState({
-                      prevPos: this.state.pos
-                    });
-                    this.state.animatedPos.setValue(0);
-                  });
-                  onTabLongPress({ route });
-                }
-              }}
-              accessibilityLabel={accessibilityLabel}
-            >
-              <View>
-                {showIcon &&
-                  renderIcon({ route, focused: isRouteActive, tintColor })}
-              </View>
-              {showLabel && renderLabel()}
-            </TabButton>
-          );
-        })}
-        <Dot
-          topPadding={topPadding}
-          activeTabBackground={activeTabBackground}
-          style={{
-            left: this.state.animatedPos.interpolate({
-              inputRange: [0, 1],
-              outputRange: [this.state.prevPos, this.state.pos]
-            })
-          }}
-          width={this.state.width}
-          height={this.state.height}
-        />
-      </Wrapper>
-    );
-  }
-}
 
 //Shadow
 const SHADOW = css`
