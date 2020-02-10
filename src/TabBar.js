@@ -93,20 +93,135 @@ export default class TabBar extends React.Component {
     });
   };
 
-  render() {
+  createTab = (route, routeIndex) => {
     const {
       inactiveTintColor,
       state,
       descriptors,
       navigation,
+      showIcon = true,
+      showLabel = true,
+      activeColors,
+      state: navigationState
+    } = this.props;
+
+    const activeColor = activeColors
+      ? Array.isArray(activeColors)
+        ? activeColors[state.index] || "#000"
+        : activeColors
+      : "#000";
+
+    const focused = routeIndex == navigationState.index;
+    const { options } = descriptors[route.key];
+    const tintColor = focused ? activeColor : inactiveTintColor;
+
+    // https://github.com/react-navigation/react-navigation/blob/master/packages/bottom-tabs/src/views/BottomTabBar.tsx#L221-L233
+    const icon = options.tabBarIcon;
+    const label =
+      options.tabBarLabel !== undefined
+        ? options.tabBarLabel
+        : options.title !== undefined
+        ? options.title
+        : route.name;
+    const accessibilityLabel =
+      options.tabBarAccessibilityLabel !== undefined
+        ? options.tabBarAccessibilityLabel
+        : typeof label === "string"
+        ? `${label}, tab, ${routeIndex + 1} of ${navigationState.routes.length}`
+        : undefined;
+
+    const onPress = () => {
+      if (!focused) {
+        this.animation(this.state.animatedPos).start(() => {
+          this.setState(prev => ({
+            prevPos: prev.pos
+          }));
+          this.state.animatedPos.setValue(0);
+        });
+
+        const event = navigation.emit({
+          type: "tabPress",
+          target: route.key
+        });
+
+        if (!event.defaultPrevented) {
+          navigation.navigate(route.name);
+        }
+      }
+    };
+
+    const onLongPress = () => {
+      if (!focused) {
+        this.animation(this.state.animatedPos).start(() => {
+          this.setState(prev => ({
+            prevPos: prev.pos
+          }));
+          this.state.animatedPos.setValue(0);
+        });
+
+        navigation.emit({
+          type: "tabLongPress",
+          target: route.key
+        });
+      }
+    };
+
+    const renderLabel = () => {
+      if (!showLabel) {
+        return null;
+      }
+
+      if (focused) {
+        if (typeof label === "string") {
+          return (
+            <Label icon={showIcon} activeColor={activeColor}>
+              {label}
+            </Label>
+          );
+        }
+
+        return label({ focused, color: activeColor });
+      }
+    };
+
+    const renderIcon = () => {
+      if (!showIcon || icon === undefined) {
+        return null;
+      }
+
+      return icon({ focused, color: tintColor });
+    };
+    return (
+      <TabButton
+        icon={icon}
+        labelLength={label.length}
+        onLayout={event => {
+          focused &&
+            this.setState({
+              pos: event.nativeEvent.layout.x,
+              width: event.nativeEvent.layout.width,
+              height: event.nativeEvent.layout.height
+            });
+        }}
+        isRouteActive={focused}
+        key={routeIndex}
+        onPress={onPress}
+        onLongPress={onLongPress}
+        accessibilityLabel={accessibilityLabel}
+      >
+        <View>{renderIcon()}</View>
+        {renderLabel()}
+      </TabButton>
+    );
+  };
+
+  render() {
+    const {
+      state,
       verticalPadding,
       tabBarBackground,
       shadow,
       topPadding,
-      showIcon = true,
-      showLabel = true,
-      activeColors,
-      state: navigationState,
       activeTabBackgrounds
     } = this.props;
 
@@ -116,11 +231,7 @@ export default class TabBar extends React.Component {
         ? activeTabBackgrounds[state.index] || "#E4F7F7"
         : activeTabBackgrounds
       : "#E4F7F7";
-    const activeColor = activeColors
-      ? Array.isArray(activeColors)
-        ? activeColors[state.index] || "#000"
-        : activeColors
-      : "#000";
+
     return (
       <Wrapper
         topPadding={topPadding}
@@ -128,112 +239,7 @@ export default class TabBar extends React.Component {
         tabBarBackground={tabBarBackground}
         shadow={shadow}
       >
-        {state.routes.map((route, routeIndex) => {
-          const focused = routeIndex == navigationState.index;
-          const { options } = descriptors[route.key];
-          const tintColor = focused ? activeColor : inactiveTintColor;
-
-          // https://github.com/react-navigation/react-navigation/blob/master/packages/bottom-tabs/src/views/BottomTabBar.tsx#L221-L233
-          const icon = options.tabBarIcon;
-          const label =
-            options.tabBarLabel !== undefined
-              ? options.tabBarLabel
-              : options.title !== undefined
-              ? options.title
-              : route.name;
-          const accessibilityLabel =
-            options.tabBarAccessibilityLabel !== undefined
-              ? options.tabBarAccessibilityLabel
-              : typeof label === "string"
-              ? `${label}, tab, ${routeIndex + 1} of ${
-                  navigationState.routes.length
-                }`
-              : undefined;
-
-          const onPress = () => {
-            if (!focused) {
-              this.animation(this.state.animatedPos).start(() => {
-                this.setState(prev => ({
-                  prevPos: prev.pos
-                }));
-                this.state.animatedPos.setValue(0);
-              });
-
-              const event = navigation.emit({
-                type: "tabPress",
-                target: route.key
-              });
-
-              if (!event.defaultPrevented) {
-                navigation.navigate(route.name);
-              }
-            }
-          };
-
-          const onLongPress = () => {
-            if (!focused) {
-              this.animation(this.state.animatedPos).start(() => {
-                this.setState(prev => ({
-                  prevPos: prev.pos
-                }));
-                this.state.animatedPos.setValue(0);
-              });
-
-              navigation.emit({
-                type: "tabLongPress",
-                target: route.key
-              });
-            }
-          };
-
-          const renderLabel = () => {
-            if (!showLabel) {
-              return null;
-            }
-
-            if (typeof label === "string" && focused) {
-              return (
-                <Label icon={showIcon} activeColor={activeColor}>
-                  {label}
-                </Label>
-              );
-            }
-
-            if (focused) {
-              return label({ focused, color: activeColor });
-            }
-          };
-
-          const renderIcon = () => {
-            if (!showIcon || icon === undefined) {
-              return null;
-            }
-
-            return icon({ focused, color: tintColor });
-          };
-          return (
-            <TabButton
-              icon={icon}
-              labelLength={label.length}
-              onLayout={event => {
-                focused &&
-                  this.setState({
-                    pos: event.nativeEvent.layout.x,
-                    width: event.nativeEvent.layout.width,
-                    height: event.nativeEvent.layout.height
-                  });
-              }}
-              isRouteActive={focused}
-              key={routeIndex}
-              onPress={onPress}
-              onLongPress={onLongPress}
-              accessibilityLabel={accessibilityLabel}
-            >
-              <View>{renderIcon()}</View>
-              {renderLabel()}
-            </TabButton>
-          );
-        })}
+        {state.routes.map(this.createTab)}
         <Dot
           topPadding={topPadding}
           activeTabBackground={activeTabBackground}
