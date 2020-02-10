@@ -27,7 +27,7 @@ const TabButton = styled.TouchableOpacity`
   align-items: center;
   border-radius: 100;
   padding-vertical: 10;
-  flex-grow: ${p => (p.isRouteActive ? p.labelLength / 10 + 1 : 1)};
+  flex-grow: ${p => (p.focused ? p.labelLength / 10 + 1 : 1)};
 `;
 
 const Label = styled(Animated.Text)`
@@ -46,71 +46,75 @@ const Dot = styled(Animated.View)`
   z-index: -1;
 `;
 
-export default class TabBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      prevPos: this.props.verticalPadding,
-      pos: 0,
-      width: 0,
-      height: 0,
-      animatedPos: new Animated.Value(1)
-    };
-  }
+export default TabBar = ({
+  verticalPadding,
+  topPadding,
+  inactiveTintColor,
+  tabBarBackground,
+  shadow,
+  descriptors,
+  showIcon = true,
+  showLabel = true,
+  activeColors,
+  navigation,
+  activeTabBackgrounds,
+  state: navigationState
+}) => {
+  const [prevPos, setPrevPos] = React.useState(verticalPadding);
+  const [pos, setPos] = React.useState(0);
+  const [width, setWidth] = React.useState(0);
+  const [height, setHeight] = React.useState(0);
+  const [animatedPos, setAnimatedPos] = React.useState(
+    () => new Animated.Value(1)
+  );
 
-  animation = value =>
-    Animated.spring(value, {
+  const animation = val =>
+    Animated.spring(val, {
       toValue: 1
     });
 
-  componentDidMount() {
-    this.animation(this.state.animatedPos).start(() => {
-      this.setState({
-        prevPos: this.state.pos
-      });
-      this.state.animatedPos.setValue(0);
-    });
-    if (Platform.OS === "android") {
-      BackHandler.addEventListener("hardwareBackPress", this.handleBackPress);
-    }
-  }
-
-  componentWillUnmount() {
-    if (Platform.OS === "android") {
-      BackHandler.removeEventListener(
-        "hardwareBackPress",
-        this.handleBackPress
-      );
-    }
-  }
-
   handleBackPress = () => {
-    this.animation(this.state.animatedPos).start(() => {
-      this.setState({
-        prevPos: this.state.pos
-      });
-      this.state.animatedPos.setValue(0);
+    animation(animatedPos).start(() => {
+      updatePrevPos();
     });
   };
 
-  createTab = (route, routeIndex) => {
-    const {
-      inactiveTintColor,
-      state,
-      descriptors,
-      navigation,
-      showIcon = true,
-      showLabel = true,
-      activeColors,
-      state: navigationState
-    } = this.props;
+  React.useEffect(() => {
+    animation(animatedPos).start(() => {
+      updatePrevPos();
+    });
 
-    const activeColor = activeColors
-      ? Array.isArray(activeColors)
-        ? activeColors[state.index] || "#000"
-        : activeColors
-      : "#000";
+    if (Platform.OS === "android") {
+      BackHandler.addEventListener("hardwareBackPress", handleBackPress);
+    }
 
+    return () => {
+      if (Platform.OS === "android") {
+        BackHandler.removeEventListener("hardwareBackPress", handleBackPress);
+      }
+    };
+  }, []);
+
+  const activeTabBackground = activeTabBackgrounds
+    ? Array.isArray(activeTabBackgrounds)
+      ? activeTabBackgrounds[navigationState.index] || "#E4F7F7"
+      : activeTabBackgrounds
+    : "#E4F7F7";
+  const activeColor = activeColors
+    ? Array.isArray(activeColors)
+      ? activeColors[navigationState.index] || "#000"
+      : activeColors
+    : "#000";
+
+  const updatePrevPos = () => {
+    setPos(pos => {
+      setPrevPos(pos);
+      return pos;
+    });
+    animatedPos.setValue(0);
+  };
+
+  const createTab = (route, routeIndex) => {
     const focused = routeIndex == navigationState.index;
     const { options } = descriptors[route.key];
     const tintColor = focused ? activeColor : inactiveTintColor;
@@ -130,13 +134,36 @@ export default class TabBar extends React.Component {
         ? `${label}, tab, ${routeIndex + 1} of ${navigationState.routes.length}`
         : undefined;
 
+    const renderLabel = () => {
+      if (!showLabel) {
+        return null;
+      }
+
+      if (typeof label === "string" && focused) {
+        return (
+          <Label icon={showIcon} activeColor={activeColor}>
+            {label}
+          </Label>
+        );
+      }
+
+      if (focused) {
+        return label({ focused, color: activeColor });
+      }
+    };
+
+    const renderIcon = () => {
+      if (!showIcon || icon === undefined) {
+        return null;
+      }
+
+      return icon({ focused, color: tintColor });
+    };
+
     const onPress = () => {
       if (!focused) {
-        this.animation(this.state.animatedPos).start(() => {
-          this.setState(prev => ({
-            prevPos: prev.pos
-          }));
-          this.state.animatedPos.setValue(0);
+        animation(animatedPos).start(() => {
+          updatePrevPos();
         });
 
         const event = navigation.emit({
@@ -152,11 +179,8 @@ export default class TabBar extends React.Component {
 
     const onLongPress = () => {
       if (!focused) {
-        this.animation(this.state.animatedPos).start(() => {
-          this.setState(prev => ({
-            prevPos: prev.pos
-          }));
-          this.state.animatedPos.setValue(0);
+        animation(animatedPos).start(() => {
+          updatePrevPos();
         });
 
         navigation.emit({
@@ -166,48 +190,23 @@ export default class TabBar extends React.Component {
       }
     };
 
-    const renderLabel = () => {
-      if (!showLabel) {
-        return null;
-      }
-
+    const onLayout = e => {
       if (focused) {
-        if (typeof label === "string") {
-          return (
-            <Label icon={showIcon} activeColor={activeColor}>
-              {label}
-            </Label>
-          );
-        }
-
-        return label({ focused, color: activeColor });
+        setPos(e.nativeEvent.layout.x);
+        setWidth(e.nativeEvent.layout.width);
+        setHeight(e.nativeEvent.layout.height);
       }
     };
 
-    const renderIcon = () => {
-      if (!showIcon || icon === undefined) {
-        return null;
-      }
-
-      return icon({ focused, color: tintColor });
-    };
     return (
       <TabButton
-        icon={icon}
+        key={route.key}
+        focused={focused}
         labelLength={label.length}
-        onLayout={event => {
-          focused &&
-            this.setState({
-              pos: event.nativeEvent.layout.x,
-              width: event.nativeEvent.layout.width,
-              height: event.nativeEvent.layout.height
-            });
-        }}
-        isRouteActive={focused}
-        key={routeIndex}
+        accessibilityLabel={accessibilityLabel}
+        onLayout={onLayout}
         onPress={onPress}
         onLongPress={onLongPress}
-        accessibilityLabel={accessibilityLabel}
       >
         <View>{renderIcon()}</View>
         {renderLabel()}
@@ -215,47 +214,29 @@ export default class TabBar extends React.Component {
     );
   };
 
-  render() {
-    const {
-      state,
-      verticalPadding,
-      tabBarBackground,
-      shadow,
-      topPadding,
-      activeTabBackgrounds
-    } = this.props;
-
-    // const { routes, index: activeRouteIndex } = navigation.state;
-    const activeTabBackground = activeTabBackgrounds
-      ? Array.isArray(activeTabBackgrounds)
-        ? activeTabBackgrounds[state.index] || "#E4F7F7"
-        : activeTabBackgrounds
-      : "#E4F7F7";
-
-    return (
-      <Wrapper
+  return (
+    <Wrapper
+      topPadding={topPadding}
+      verticalPadding={verticalPadding}
+      tabBarBackground={tabBarBackground}
+      shadow={shadow}
+    >
+      {navigationState.routes.map(createTab)}
+      <Dot
         topPadding={topPadding}
-        verticalPadding={verticalPadding}
-        tabBarBackground={tabBarBackground}
-        shadow={shadow}
-      >
-        {state.routes.map(this.createTab)}
-        <Dot
-          topPadding={topPadding}
-          activeTabBackground={activeTabBackground}
-          style={{
-            left: this.state.animatedPos.interpolate({
-              inputRange: [0, 1],
-              outputRange: [this.state.prevPos, this.state.pos]
-            })
-          }}
-          width={this.state.width}
-          height={this.state.height}
-        />
-      </Wrapper>
-    );
-  }
-}
+        activeTabBackground={activeTabBackground}
+        style={{
+          left: animatedPos.interpolate({
+            inputRange: [0, 1],
+            outputRange: [prevPos, pos]
+          })
+        }}
+        width={width}
+        height={height}
+      />
+    </Wrapper>
+  );
+};
 
 //Shadow
 const SHADOW = css`
