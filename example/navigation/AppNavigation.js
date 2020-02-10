@@ -70,8 +70,8 @@ export default () => (
       name="Home"
       component={Home}
       options={{
-        tabBarIcon: ({ focused, tintColor }) => (
-          <TabBarIcon focused={focused} tintColor={tintColor} name="home" />
+        tabBarIcon: ({ focused, color }) => (
+          <TabBarIcon focused={focused} tintColor={color} name="home" />
         )
       }}
     />
@@ -79,8 +79,8 @@ export default () => (
       name="Discover"
       component={Discover}
       options={{
-        tabBarIcon: ({ focused, tintColor }) => (
-          <TabBarIcon focused={focused} tintColor={tintColor} name="search" />
+        tabBarIcon: ({ focused, color }) => (
+          <TabBarIcon focused={focused} tintColor={color} name="search" />
         )
       }}
     />
@@ -88,8 +88,8 @@ export default () => (
       name="Images"
       component={Images}
       options={{
-        tabBarIcon: ({ focused, tintColor }) => (
-          <TabBarIcon focused={focused} tintColor={tintColor} name="image" />
+        tabBarIcon: ({ focused, color }) => (
+          <TabBarIcon focused={focused} tintColor={color} name="image" />
         )
       }}
     />
@@ -97,8 +97,8 @@ export default () => (
       name="Profile"
       component={Profile}
       options={{
-        tabBarIcon: ({ focused, tintColor }) => (
-          <TabBarIcon focused={focused} tintColor={tintColor} name="user" />
+        tabBarIcon: ({ focused, color }) => (
+          <TabBarIcon focused={focused} tintColor={color} name="user" />
         )
       }}
     />

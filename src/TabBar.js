@@ -49,10 +49,9 @@ const Dot = styled(Animated.View)`
 export default TabBar = ({
   verticalPadding,
   topPadding,
-  tintColor,
+  inactiveTintColor,
   tabBarBackground,
   shadow,
-  selectedIndex,
   descriptors,
   showIcon = true,
   showLabel = true,
@@ -111,6 +110,7 @@ export default TabBar = ({
   const createTab = (route, routeIndex) => {
     const focused = routeIndex == navigationState.index;
     const { options } = descriptors[route.key];
+    const tintColor = focused ? activeColor : inactiveTintColor;
 
     // https://github.com/react-navigation/react-navigation/blob/master/packages/bottom-tabs/src/views/BottomTabBar.tsx#L221-L233
     const icon = options.tabBarIcon;
