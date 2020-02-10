@@ -156,7 +156,7 @@ export default TabBar = ({
 
     const onPress = () => {
       if (!focused) {
-        animation(this.state.animatedPos).start(() => {
+        animation(animatedPos).start(() => {
           setPrevPos(pos);
           animatedPos.setValue(0);
         });
@@ -174,7 +174,7 @@ export default TabBar = ({
 
     const onLongPress = () => {
       if (!focused) {
-        animation(this.state.animatedPos).start(() => {
+        animation(animatedPos).start(() => {
           setPrevPos(pos);
           animatedPos.setValue(0);
         });
