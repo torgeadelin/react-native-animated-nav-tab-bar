@@ -56,6 +56,7 @@ export default TabBar = ({
   showIcon = true,
   showLabel = true,
   activeColors,
+  navigation,
   activeTabBackgrounds,
   state: navigationState
 }) => {
@@ -153,12 +154,46 @@ export default TabBar = ({
       return icon({ focused, color: tintColor });
     };
 
+    const onPress = () => {
+      if (!focused) {
+        animation(this.state.animatedPos).start(() => {
+          setPrevPos(pos);
+          animatedPos.setValue(0);
+        });
+
+        const event = navigation.emit({
+          type: "tabPress",
+          target: route.key
+        });
+
+        if (!event.defaultPrevented) {
+          navigation.navigate(route.name);
+        }
+      }
+    };
+
+    const onLongPress = () => {
+      if (!focused) {
+        animation(this.state.animatedPos).start(() => {
+          setPrevPos(pos);
+          animatedPos.setValue(0);
+        });
+
+        navigation.emit({
+          type: "tabLongPress",
+          target: route.key
+        });
+      }
+    };
+
     return (
       <TabButton
         key={route.key}
         isRouteActive={focused}
         labelLength={label.length}
         accessibilityLabel={accessibilityLabel}
+        onPress={onPress}
+        onLongPress={onLongPress}
       >
         <View>{renderIcon()}</View>
         {renderLabel()}
