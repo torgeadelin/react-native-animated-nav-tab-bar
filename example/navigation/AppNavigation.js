@@ -5,6 +5,8 @@ import { TabBar } from "react-native-animated-nav-tab-bar";
 import Icon from "react-native-vector-icons/Feather";
 import styled from "styled-components/native";
 
+console.log(TabBar);
+
 const Screen = styled.View`
   flex: 1;
   justify-content: center;
@@ -52,19 +54,17 @@ const Tabs = createBottomTabNavigator();
 
 export default () => (
   <Tabs.Navigator
-    options={{
-      tabBarOptions: {
-        activeTintColor: "#2F7C6E",
-        inactiveTintColor: "#222222"
-      },
-      tabBarComponent: props => (
-        <TabBar
-          activeColors={"#2F7C6E"}
-          activeTabBackgrounds={"#DFF7F6"}
-          {...props}
-        />
-      )
+    tabBarOptions={{
+      activeTintColor: "#2F7C6E",
+      inactiveTintColor: "#222222"
     }}
+    tabBar={props => (
+      <TabBar
+        activeColors={"#2F7C6E"}
+        activeTabBackgrounds={"#DFF7F6"}
+        {...props}
+      />
+    )}
   >
     <Tabs.Screen
       name="Home"
