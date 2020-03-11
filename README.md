@@ -9,6 +9,10 @@ A simple and customisable React Native component that implements an animated bot
 
 - Support for iPhoneX
 
+## Updates
+
+react-native-animated-nav-tab-bar v2.01 now works with React Navigation v5, if you're still using a previous version of React Navigation, please use v1 of this package.
+
 ## Preview
 
 <img src="https://i.imgur.com/lRG92ds.gif" width="300">
