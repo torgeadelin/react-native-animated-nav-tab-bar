@@ -9,6 +9,10 @@ A simple and customisable React Native component that implements an animated bot
 
 - Support for iPhoneX
 
+## Updates
+
+react-native-animated-nav-tab-bar v2.01 now works with React Navigation v5, if you're still using a previous version of React Navigation, please use v1 of this package.
+
 ## Preview
 
 <img src="https://i.imgur.com/lRG92ds.gif" width="300">
@@ -37,32 +41,28 @@ npm install react-native-animated-nav-tab-bar
 import { TabBar } from "react-native-animated-nav-tab-bar";
 ```
 
-Simply place a `<TabBar />` tag in the `tabBarComponent` in the configuration option object of the navigation function
+Simply place a `<TabBar />` tag in the `tabBar` in the configuration option object of the navigation function
 
 ```javascript
 ...
-export default createAppContainer(
-    createBottomTabNavigator(
-        {
-            Home: HomeStack,
-            Discover: DiscoverStack,
-            Images: ImagesStack,
-            Profie: ProfileStack,
 
-        }, {
-            tabBarOptions: {
-                activeTintColor: "#2B7C85",
-                inactiveTintColor: "#222222",
-            },
+const Tabs = createBottomTabNavigator();
 
-            tabBarComponent: props => <TabBar
-                activeColors={['#e6b580', '#8e87d6', '#c095c9']} // or activeColors={'#e6b580'}
-                activeTabBackgrounds={['#ede7e6', '#eae3f6', '#eae4f6']} // or activeTabBackgrounds={'#ede7e6'}
-                {...props}
-            />,
-        }
-    )
-)
+export default () => (
+  <Tabs.Navigator
+    tabBarOptions={{
+      activeTintColor: "#2F7C6E",
+      inactiveTintColor: "#222222"
+    }}
+    tabBar={props => (
+      <TabBar
+        activeColors={['#e6b580', '#8e87d6', '#c095c9']} // or activeColors={'#e6b580'}
+        activeTabBackgrounds={['#ede7e6', '#eae3f6', '#eae4f6']} // or activeTabBackgrounds={'#ede7e6'}
+        {...props}
+      />
+    )}
+  >
+  </Tabs.Navigator>
 ```
 
 Add icons to your Bottom Navigation
@@ -74,21 +74,36 @@ Example
 import Icon from 'react-native-vector-icons/Feather';
 ...
 
-const HomeStack = createStackNavigator({
-    Home: () => <View style={{flex:1 }}><Text>Home</Text></View>
-})
-
-HomeStack.navigationOptions = {
-    tabBarIcon: ({ focused, tintColor }) =>
-        <Icon
-            name={props.name}
-            size={props.size ? props.size : 24}
-            color={props.focused ? props.tintColor : "#222222"}
-            focused={focused}
-            tintColor={tintColor}
-            name="home"
-        />,
-}
+export default () =>
+  <Tabs.Navigator
+    tabBarOptions={{
+      activeTintColor: "#2F7C6E",
+      inactiveTintColor: "#222222"
+    }}
+    tabBar={props => (
+      <TabBar
+        activeColors={"#2F7C6E"}
+        activeTabBackgrounds={"#DFF7F6"}
+        {...props}
+      />
+    )}
+  >
+    <Tabs.Screen
+      name="Home"
+      component={Home}
+      options={{
+        tabBarIcon: ({ focused, color, size }) => (
+            <Icon
+                name="Home"
+                size={size ? size : 24}
+                color={focused ? color : "#222222"}
+                focused={focused}
+                color={color}
+            />
+        )
+      }}
+    />
+    </Tabs.Navigator>
 ...
 ```
 
