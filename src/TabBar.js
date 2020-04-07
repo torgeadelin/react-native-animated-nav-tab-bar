@@ -68,7 +68,8 @@ export default TabBar = ({
 
   const animation = val =>
     Animated.spring(val, {
-      toValue: 1
+      toValue: 1,
+      useNativeDriver: true
     });
 
   handleBackPress = () => {
@@ -224,10 +225,12 @@ export default TabBar = ({
         topPadding={topPadding}
         activeTabBackground={activeTabBackground}
         style={{
-          left: animatedPos.interpolate({
-            inputRange: [0, 1],
-            outputRange: [prevPos, pos]
-          })
+          transform: [{
+            translateX: animatedPos.interpolate({
+              inputRange: [0, 1],
+              outputRange: [prevPos, pos]
+            })
+          }]
         }}
         width={width}
         height={height}
