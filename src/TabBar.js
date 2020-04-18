@@ -93,6 +93,13 @@ export default TabBar = ({
     };
   }, []);
 
+  React.useEffect(() => {
+    animation(animatedPos).start(() => {
+      updatePrevPos();
+    });
+
+  }, [navigationState.index]);
+
   const activeTabBackground = activeTabBackgrounds
     ? Array.isArray(activeTabBackgrounds)
       ? activeTabBackgrounds[navigationState.index] || "#E4F7F7"
