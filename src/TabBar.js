@@ -68,7 +68,8 @@ export default TabBar = ({
 
   const animation = val =>
     Animated.spring(val, {
-      toValue: 1
+      toValue: 1,
+      useNativeDriver: false
     });
 
   handleBackPress = () => {

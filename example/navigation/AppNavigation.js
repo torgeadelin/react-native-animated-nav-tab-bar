@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import { Text } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { TabBar } from "react-native-animated-nav-tab-bar";
-import Icon from "react-native-vector-icons/Feather";
+import Icon from "react-native-vector-icons/Feather"
 import styled from "styled-components/native";
 
 console.log(TabBar);
@@ -24,15 +24,17 @@ const TabBarIcon = props => {
   );
 };
 
-const Home = () => (
+const Home = (props) => (
   <Screen>
     <Text>Home</Text>
+    <TouchableOpacity onPress={() => props.navigation.navigate("Discover")}><Text>Go to Discover</Text></TouchableOpacity>
   </Screen>
 );
 
-const Discover = () => (
+const Discover = (props) => (
   <Screen>
     <Text>Discover</Text>
+    <TouchableOpacity onPress={() => props.navigation.navigate("Home")}><Text>Go to Home</Text></TouchableOpacity>
   </Screen>
 );
 
