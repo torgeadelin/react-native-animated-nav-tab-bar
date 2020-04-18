@@ -9,11 +9,13 @@ A simple and customisable React Native component that implements an animated bot
 
 - Support for iPhoneX
 
-## Updates
+## Updates 📆
 
-- In order to run the examples, don't forget to `pod install` after `npm install`
-- Glitch when using navigation.navigate() has been fixed!
-- the package v2.01 now works with React Navigation 5. If you're still using a previous version of React Navigation, please use v1 of this package.
+- *April 19 2020*
+  - In order to run the examples, don't forget to `pod install` after `npm install`
+  - Glitch when using navigation.navigate() has been fixed!
+- *March 11 2020*
+  - the package v2.01 now works with React Navigation 5. If you're still using a previous version of React Navigation, please use v1 of this package.
 
 
 ## Preview
