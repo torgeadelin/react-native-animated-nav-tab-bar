@@ -9,7 +9,7 @@ A simple and customisable React Native component that implements an animated bot
 
 - Support for iPhoneX
 
-## Updates 📆
+## 📆 Updates 
 
 - *April 19 2020*
   - In order to run the examples, don't forget to `pod install` after `npm install`
