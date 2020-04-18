@@ -11,7 +11,10 @@ A simple and customisable React Native component that implements an animated bot
 
 ## Updates
 
-react-native-animated-nav-tab-bar v2.01 now works with React Navigation v5, if you're still using a previous version of React Navigation, please use v1 of this package.
+- In order to run the examples, don't forget to `pod install` after `npm install`
+- Glitch when using navigation.navigate() has been fixed!
+- the package v2.01 now works with React Navigation 5. If you're still using a previous version of React Navigation, please use v1 of this package.
+
 
 ## Preview
 
