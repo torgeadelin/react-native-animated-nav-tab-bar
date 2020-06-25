@@ -4,18 +4,30 @@
 ![npm](https://img.shields.io/npm/dw/react-native-animated-nav-tab-bar.svg)
 
 # react-native-animated-nav-tab-bar
+<div style="display: flex; flex-direction: row; justyfy-content: flex-start;">
+  <img src="https://i.imgur.com/IfQh9UQ.png" width="150" height="150"/>
+  <p>A simple and customisable React Native component that implements an animated bottom tab bar for React Navigation v5.</p>
+ </div>
 
-A simple and customisable React Native component that implements an animated bottom tab bar for React Navigation.
-
+- 60FPS
 - Support for iPhoneX
+- Lots of customisation
+- Bottom Tab Bar Floating style
 
-## 📆 Updates 
+## 📆 Updates / Changelog
 
 - *April 19 2020*
   - In order to run the examples, don't forget to `pod install` after `npm install`
   - Glitch when using navigation.navigate() has been fixed!
 - *March 11 2020*
-  - the package v2.01 now works with React Navigation 5. If you're still using a previous version of React Navigation, please use v1 of this package.
+  - The package v2.01 now works with React Navigation 5. If you're still using a previous version of React Navigation, please use v1 of this package.
+- *June 25 2020*
+  - Upgrade to v3.0
+  - Add more customisations including, floating style, icon configs, label configs, and more.
+  - Fixed issues with changing screen orientation
+  - Fixed animation when provided initial screen
+  - Improved code quality, refactoring
+  - Implement a new [custom navigation](https://reactnavigation.org/docs/custom-navigators) builder 
 
 
 ## Preview
