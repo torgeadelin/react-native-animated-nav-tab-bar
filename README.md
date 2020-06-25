@@ -44,21 +44,21 @@
 
 <div style="display:flex;">
   
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config6.png?raw=true" width="200">
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config7.png?raw=true" width="200">
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config8.png?raw=true" width="200">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config6.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config7.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config8.png?raw=true" width="300">
 </div>
 
 <div style="display:flex;">
   
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config1.png?raw=true" width="200">
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config2.png?raw=true" width="200">
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config3.png?raw=true" width="200">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config1.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config2.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config3.png?raw=true" width="300">
 </div>
 
 <div style="display:flex;">
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config4.png?raw=true" width="200">
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config5.png?raw=true" width="200">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config4.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config5.png?raw=true" width="300">
 </div>
 
 
