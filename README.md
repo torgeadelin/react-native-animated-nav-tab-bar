@@ -31,8 +31,12 @@
 
 
 ## Preview
-
+<div style="display:flex;">
 <img src="https://i.imgur.com/lRG92ds.gif" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo1.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo2.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo3.png?raw=true" width="300">
+</div>
 
 ## Prerequisites
 
