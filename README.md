@@ -30,13 +30,37 @@
   - Implement a new [custom navigation](https://reactnavigation.org/docs/custom-navigators) builder 
 
 
-## Preview
-<div style="display:flex;">
+## Animation Preview
 <img src="https://i.imgur.com/lRG92ds.gif" width="300">
+
+## Customisation Preview
+<div style="display:flex;">
 <img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo1.png?raw=true" width="300">
 <img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo2.png?raw=true" width="300">
 <img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo3.png?raw=true" width="300">
 </div>
+
+## Other possible Customisations
+
+<div style="display:flex;">
+  
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config6.png?raw=true" width="200">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config7.png?raw=true" width="200">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config8.png?raw=true" width="200">
+</div>
+
+<div style="display:flex;">
+  
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config1.png?raw=true" width="200">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config2.png?raw=true" width="200">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config3.png?raw=true" width="200">
+</div>
+
+<div style="display:flex;">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config4.png?raw=true" width="200">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config5.png?raw=true" width="200">
+</div>
+
 
 ## Prerequisites
 
