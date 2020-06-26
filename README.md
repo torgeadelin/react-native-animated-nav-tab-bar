@@ -55,8 +55,8 @@
 <img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config2.png?raw=true" width="300px" height="220>
 <img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config3.png?raw=true" width="300px" height="220">
 </div>
-<br/>
-<div style="display:flex;">
+
+<div style="margin-top: 30px; display:flex;">
 <img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config4.png?raw=true" width="300" height="220">
 <img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config5.png?raw=true" width="300" height="220">
 </div>
