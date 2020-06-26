@@ -1,3 +1,3 @@
-import TabBar from './src/TabBar'
+import AnimatedTabBarNavigator from "./src/AnimatedTabBarNavigator";
 
-export { TabBar }
+export { AnimatedTabBarNavigator };

@@ -5,26 +5,66 @@
 
 # react-native-animated-nav-tab-bar
 
-A simple and customisable React Native component that implements an animated bottom tab bar for React Navigation.
+<img src="https://i.imgur.com/IfQh9UQ.png" width="150" height="150"/>
+<p>A simple and customisable React Native component that implements an animated bottom tab bar for React Navigation v5.</p>
 
+- 60FPS
 - Support for iPhoneX
+- Lots of customisation
+- Bottom Tab Bar Floating style
 
-## 📆 Updates 
+## 📆 Updates / Changelog
 
-- *April 19 2020*
+- _April 19 2020_
   - In order to run the examples, don't forget to `pod install` after `npm install`
   - Glitch when using navigation.navigate() has been fixed!
-- *March 11 2020*
-  - the package v2.01 now works with React Navigation 5. If you're still using a previous version of React Navigation, please use v1 of this package.
+- _March 11 2020_
+- _June 25 2020_
+  - Upgrade to v3.0
+  - Add more customisations including, floating style, icon configs, label configs, and more.
+  - Fixed issues with changing screen orientation
+  - Fixed animation when provided initial screen
+  - Improved code quality, refactoring
+  - Implement a new [custom navigation](https://reactnavigation.org/docs/custom-navigators) builder
 
-
-## Preview
+## Animation Preview
 
 <img src="https://i.imgur.com/lRG92ds.gif" width="300">
 
+## Customisation Preview
+
+<div style="display:flex;">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo1.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo2.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo3.png?raw=true" width="300">
+</div>
+
+## Other possible Customisations
+
+### Tab Bar Icons
+
+<div style="display:flex;">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config6.png?raw=true" width="300px" height="135">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config7.png?raw=true" width="300px" height="135">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config8.png?raw=true" width="300px" height="135">
+</div>
+
+### Layout
+
+<div style="display:flex; justify-content: space-between; align-items: center;">  
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config1.png?raw=true" width="300px" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config2.png?raw=true" width="300px" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config3.png?raw=true" width="300px" height="220">
+</div>
+
+<div style="margin-top: 30px; display:flex;">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config4.png?raw=true" width="300" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config5.png?raw=true" width="300" height="220">
+</div>
+
 ## Prerequisites
 
-❗️In order to use the component, you need to have [React Navigation](https://reactnavigation.org/) installed
+❗️In order to use the component, you need to have [React Navigation](https://reactnavigation.org/) v5 installed.
 
 ## Installation
 
@@ -42,41 +82,50 @@ npm install react-native-animated-nav-tab-bar
 
 ## Usage
 
+#### Import
+
 ```javascript
-import { TabBar } from "react-native-animated-nav-tab-bar";
+import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 ```
 
-Simply place a `<TabBar />` tag in the `tabBar` in the configuration option object of the navigation function
+#### Initialise
+
+Then create a navigator using the navigation builder that you imported, and create your navigation! Look at the example below.
 
 ```javascript
 ...
 
-const Tabs = createBottomTabNavigator();
+const Tabs = AnimatedTabBarNavigator();
 
 export default () => (
   <Tabs.Navigator
+    // default configuration from React Navigation
     tabBarOptions={{
       activeTintColor: "#2F7C6E",
       inactiveTintColor: "#222222"
     }}
-    tabBar={props => (
-      <TabBar
-        activeColors={['#e6b580', '#8e87d6', '#c095c9']} // or activeColors={'#e6b580'}
-        activeTabBackgrounds={['#ede7e6', '#eae3f6', '#eae4f6']} // or activeTabBackgrounds={'#ede7e6'}
-        {...props}
-      />
-    )}
   >
+
+    // Home Screen
+    <Tabs.Screen name="Home" component={Home} />
+
+    // Other screens go here.
+    ...
+
   </Tabs.Navigator>
+)
 ```
 
-Add icons to your Bottom Navigation
-To use this, you need [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
+#### Add Icons
+
+If you'd like to add icons to your Bottom Navigation
+you can use [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons). Look at an example of how to add icons to your tab bar.
 
 Example
 
 ```javascript
 import Icon from 'react-native-vector-icons/Feather';
+
 ...
 
 export default () =>
@@ -85,13 +134,6 @@ export default () =>
       activeTintColor: "#2F7C6E",
       inactiveTintColor: "#222222"
     }}
-    tabBar={props => (
-      <TabBar
-        activeColors={"#2F7C6E"}
-        activeTabBackgrounds={"#DFF7F6"}
-        {...props}
-      />
-    )}
   >
     <Tabs.Screen
       name="Home"
@@ -109,20 +151,44 @@ export default () =>
       }}
     />
     </Tabs.Navigator>
+
 ...
 ```
 
 ## Documentation
 
-### TabBar Component
+The navigation component takes two main props which help you customise your navigation. `tabBarOptions` is the default prop from React Navigation which you can use to specify different tint colors and more (see available options below). for all the details. The second prop is `appearence`. Here you'll be able to adjust several properties of the tab bar as you wish. See the available properties above.
 
-| Name                | Description                                                        | Default | Type   |
-| ------------------- | ------------------------------------------------------------------ | ------- | ------ |
-| activeTabBackground | Color of active tab backgorund                                     | #E4F7F7 | String |
-| tabBarBackground    | Backgorund color for the wrapper that contains the navigation tabs | #FFFFFF | String |
-| shadow              | If set to true, the wrapper has a light shadow                     | true    | Bool   |
-| verticalPadding     | Vertical space between for the tab buttons                         | 10      | Number |
-| topPadding          | Space between the tab button and the wrapper (top)                 | 10      | Number |
+- **tabBarOptions**
+
+  - ✅`activeTintColor` - Label and icon color of the active tab item.
+  - ✅`inactiveTintColor` - Label and icon color of the inactive tab item.
+  - ✅`activeBackgroundColor` - Background color of the active tab item.
+  - ✅`tabStyle` - Style object for the tab wrapper (**Note!** it overrides the properties in `appearence` prop (see below).
+  - ✅`labelStyle` - Style object for the tab label text.
+
+- **appearence**
+
+  - `topPadding` (default: 20) - Space between the tab button and the wrapper (top)
+  - ✅`horizontalPadding` (default: 20) - Vertical space between for the tab buttons
+  - ✅`tabBarBackground` (default: "white") - Backgorund color for the wrapper that contains the navigation tabs
+  - ✅`shadow` (default: true) - If set to true, the wrapper has a light shadow
+
+  - ✅`activeTabBackgrounds` - Array of hex colours for the background of each tab when active. (if not specified, falls back to the `activeBackgroundColor` from `tabBarOptions`)
+  - ✅`activeColors` - Array of hex colours for the tint of each tab when active. (if not specified, falls back to the `activeTintColor` from `tabBarOptions`)
+
+  - ✅`floating` (default: false) - If set to true, the nav bar will float on top of the current screen. Look at examples above.
+  - ✅`whenActiveShow` (default: "both") Configure the appearence of the active tab. Available values `both`, `label-only`, `icon-only`.
+  - ✅`whenInactiveShow` (default: "icon-only") Configure the appearence of the inactive tabs. Available values `both`, `label-only`, `icon-only`.
+
+  - ✅`dotCornerRadius` (default: 100) Corner radius for the active background / dot.
+  - ✅`dotSize` (default: "medium") Size of dot for the active tab. Available values `small`, `medium`, `large`.
+
+  **Note! Make sure you reload your view after changing the props. The animation might be stuck while changing them dinamically.**
+
+## Troubleshooting
+
+- My tab doesn't reflect the `tabStyle` object when I set `paddingTop`. **Solution**: You must provide the same value for `paddingTop` in both `tabStyle` object and `topPadding` property from `appearence`. This is due to the fact that the dot / active background uses position absolute, and the parent's padding top does not affect it.
 
 ## Contributing
 
