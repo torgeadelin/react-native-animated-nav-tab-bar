@@ -22,6 +22,18 @@ function BottomTabNavigator({
     screenOptions,
   });
 
+  const defaultAppearence = {
+    topPadding: 20,
+    horizontalPadding: 20,
+    tabBarBackground: "#FFFFFF",
+    floating: false,
+    dotCornerRadius: 100,
+    whenActiveShow: "both",
+    whenInactiveShow: "icon-only",
+    shadow: true,
+    dotSize: 100,
+  };
+
   return (
     <TabBarElement
       {...rest}
@@ -29,9 +41,23 @@ function BottomTabNavigator({
       navigation={navigation}
       descriptors={descriptors}
       tabBarOptions={tabBarOptions}
-      appearence={appearence}
+      appearence={{ ...defaultAppearence, ...appearence }}
     />
   );
 }
+
+TabBarElement.defaultProps = {
+  appearence: {
+    topPadding: 20,
+    horizontalPadding: 20,
+    tabBarBackground: "#FFFFFF",
+    floating: false,
+    dotCornerRadius: 100,
+    whenActiveShow: "both",
+    whenInactiveShow: "icon-only",
+    shadow: true,
+    dotSize: 100,
+  },
+};
 
 export default createNavigatorFactory(BottomTabNavigator);

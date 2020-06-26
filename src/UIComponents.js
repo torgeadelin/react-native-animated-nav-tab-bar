@@ -8,14 +8,14 @@ const BOTTOM_PADDING = 10;
 const BOTTOM_PADDING_IPHONE_X = 30;
 
 const floatingMarginBottom = css`
-  margin-bottom: ${isIphoneX() ? BOTTOM_PADDING_IPHONE_X : BOTTOM_PADDING};
+  margin-bottom: ${isIphoneX() ? BOTTOM_PADDING_IPHONE_X : BOTTOM_PADDING}px;
 `;
 const floatingMarginHorizontal = css`
-  margin-horizontal: 20;
+  margin-horizontal: 20px;
 `;
 
 const floatingRoundCorner = css`
-  border-radius: 40;
+  border-radius: 40px;
 `;
 
 const BottomTabBarWrapper = Styled.View`
@@ -29,7 +29,7 @@ const BottomTabBarWrapper = Styled.View`
         ? BOTTOM_PADDING * 2
         : isIphoneX()
         ? BOTTOM_PADDING_IPHONE_X
-        : BOTTOM_PADDING};;
+        : BOTTOM_PADDING};
     padding-top: ${(p) => p.topPadding};
     padding-horizontal: ${(p) => p.horizontalPadding};
     background-color: ${(p) => p.tabBarBackground};

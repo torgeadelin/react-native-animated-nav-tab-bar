@@ -32,17 +32,17 @@ export default function TabBarElement({
 }) {
   // Apprearence options destruction
   const {
-    topPadding = 20,
-    horizontalPadding = 20,
-    tabBarBackground = "white",
+    topPadding,
+    horizontalPadding,
+    tabBarBackground,
     activeTabBackgrounds,
     activeColors,
-    floating = false,
-    dotCornerRadius = 100,
-    whenActiveShow = "both",
-    whenInactiveShow = "icon-only",
+    floating,
+    dotCornerRadius,
+    whenActiveShow,
+    whenInactiveShow,
     dotSize,
-    shadow = true,
+    shadow,
   } = appearence;
 
   const {

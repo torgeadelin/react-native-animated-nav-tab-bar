@@ -71,21 +71,11 @@ export default () => (
 			activeTintColor: 'black',
 			inactiveTintColor: 'black',
 			activeBackgroundColor: '#FFCF64',
-			tabStyle: {
-				paddingBottom: 10,
-			},
-			labelSt,
 		}}
 		appearence={{
-			topPadding: 10,
-			verticalPadding: 10,
-			tabBarBackground: 'white',
 			floating: true,
-
-			// 	// activeTabBackgrounds: ['#ede7e6', '#eae3f6', '#eae4f6'],
-			// 	// activeColors: ['#e6b580', '#8e87d6', '#c095c9'],
-			// 	// if this is not specified, or not all of them specified, it falls back to
-			// 	// tabBarOptions activeTint/activeBg
+			topPadding: 10,
+			horizontalPadding: 10,
 		}}
 		initialRouteName="Home">
 		<Tabs.Screen

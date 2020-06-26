@@ -157,14 +157,14 @@ export default () =>
 
 ## Documentation
 
-The navigation component takes two main props which help you customise your navigation. `tabBarOptions` is the default prop from React Navigation which you can use to specify different tint colors and more. Please check [this link](https://reactnavigation.org/docs/bottom-tab-navigator#tabbaroptions) for all the details.
+The navigation component takes two main props which help you customise your navigation. `tabBarOptions` is the default prop from React Navigation which you can use to specify different tint colors and more (see available options below). for all the details. The second prop is `appearence`. Here you'll be able to adjust several properties of the tab bar as you wish. See the available properties above.
 
 - **tabBarOptions**
 
   - ✅`activeTintColor` - Label and icon color of the active tab item.
   - ✅`inactiveTintColor` - Label and icon color of the inactive tab item.
   - ✅`activeBackgroundColor` - Background color of the active tab item.
-  - ✅`tabStyle` - Style object for the tab wrapper (it overrides the properties in `appearence` prop (see below))
+  - ✅`tabStyle` - Style object for the tab wrapper (**Note!** it overrides the properties in `appearence` prop (see below).
   - ✅`labelStyle` - Style object for the tab label text.
 
 - **appearence**
@@ -183,6 +183,12 @@ The navigation component takes two main props which help you customise your navi
 
   - ✅`dotCornerRadius` (default: 100) Corner radius for the active background / dot.
   - ✅`dotSize` (default: "medium") Size of dot for the active tab. Available values `small`, `medium`, `large`.
+
+  **Note! Make sure you reload your view after changing the props. The animation might be stuck while changing them dinamically.**
+
+## Troubleshooting
+
+- My tab doesn't reflect the `tabStyle` object when I set `paddingTop`. **Solution**: You must provide the same value for `paddingTop` in both `tabStyle` object and `topPadding` property from `appearence`. This is due to the fact that the dot / active background uses position absolute, and the parent's padding top does not affect it.
 
 ## Contributing
 
