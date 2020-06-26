@@ -74,6 +74,7 @@ export default () => (
 			tabStyle: {
 				paddingBottom: 10,
 			},
+			labelSt,
 		}}
 		appearence={{
 			topPadding: 10,
