@@ -112,7 +112,7 @@ export default function TabBarElement({
   /**
    * Handles physical button press for Android
    */
-  handleBackPress = () => {
+  const handleBackPress = () => {
     animation(animatedPos).start(() => {
       updatePrevPos();
     });
