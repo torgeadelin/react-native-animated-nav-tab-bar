@@ -71,7 +71,6 @@ const Label = Styled(Animated.Text)`
 	fontSize: ${(p) =>
     p.whenInactiveShow == "both" || p.whenActiveShow == "both" ? "14" : "17"};
 	color: ${(p) => p.activeColor};
-	font-weight: bold;
 	margin-left: ${(p) =>
     p.whenActiveShow == "both" || p.whenInactiveShow == "both" ? 8 : 0};
 `;
