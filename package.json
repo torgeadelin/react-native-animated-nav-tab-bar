@@ -1,6 +1,6 @@
 {
   "name": "react-native-animated-nav-tab-bar",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Animated React Native TabBar Navigator for React Navigation",
   "main": "index.js",
   "scripts": {
