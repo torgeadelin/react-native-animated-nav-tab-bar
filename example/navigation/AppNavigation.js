@@ -21,7 +21,7 @@ const Logo = () => (
 	/>
 )
 
-const TabBarIcon = props => {
+const TabBarIcon = (props) => {
 	return (
 		<Icon
 			name={props.name}
@@ -31,7 +31,7 @@ const TabBarIcon = props => {
 	)
 }
 
-const Home = props => (
+const Home = (props) => (
 	<Screen>
 		<Logo />
 		<Text>Home</Text>
@@ -41,7 +41,7 @@ const Home = props => (
 	</Screen>
 )
 
-const Discover = props => (
+const Discover = (props) => (
 	<Screen>
 		<Logo />
 		<Text>Discover</Text>
@@ -71,6 +71,9 @@ export default () => (
 			activeTintColor: 'black',
 			inactiveTintColor: 'black',
 			activeBackgroundColor: '#FFCF64',
+			labelStyle: {
+				fontWeight: 'bold',
+			},
 		}}
 		appearence={{
 			floating: true,
