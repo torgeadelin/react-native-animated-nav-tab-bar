@@ -15,6 +15,12 @@
 
 ## 📆 Updates / Changelog
 
+- _September 27 2020_
+  - Updated example to rn 0.63
+  - Fixed issue #37 where screens would re-render on every tab change. Also added the lazy option found in the default react navigation tabbar
+  - Fixed default props errors #34 and #35. The component doesn't require any appearence options to work. It will use default style. See docs how to change.
+  - Fixed issue with screen listeners #38 (you can now prevent default)
+  - Fixed small ui glitches
 - _April 19 2020_
   - In order to run the examples, don't forget to `pod install` after `npm install`
   - Glitch when using navigation.navigate() has been fixed!

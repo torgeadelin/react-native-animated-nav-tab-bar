@@ -59,19 +59,12 @@ const Images = () => (
 	</Screen>
 )
 
-class Profile extends React.Component {
-	componentDidMount() {
-		console.log('DID')
-	}
-	render() {
-		return (
-			<Screen>
-				<Logo />
-				<Text>Profile</Text>
-			</Screen>
-		)
-	}
-}
+const Profile = () => (
+	<Screen>
+		<Logo />
+		<Text>Profile</Text>
+	</Screen>
+)
 
 export default () => (
 	<Tabs.Navigator initialRouteName="Home">
@@ -101,7 +94,6 @@ export default () => (
 				),
 			}}
 		/>
-
 		<Tabs.Screen
 			name="Images"
 			component={Images}

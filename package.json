@@ -1,6 +1,6 @@
 {
   "name": "react-native-animated-nav-tab-bar",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Animated React Native TabBar Navigator for React Navigation",
   "main": "index.js",
   "scripts": {
@@ -35,6 +35,7 @@
   "dependencies": {
     "@react-navigation/native": "^5.1.6",
     "prop-types": "^15.7.2",
+    "react-native-screens": "^2.11.0",
     "styled-components": "^4.3.2"
   }
 }

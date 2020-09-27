@@ -17,7 +17,7 @@ import {
   Label,
   SHADOW,
 } from "./UIComponents";
-import ResourceSavingScene from "./ResourceSavingScreen";
+import ResourceSavingScene from "./ResourceSavingScene";
 
 /**
  * @name TabBarElement
@@ -74,14 +74,8 @@ export default function TabBarElement({
 
   React.useEffect(() => {
     const { index } = state;
-    console.log(index);
-    console.log(loaded);
     setLoaded(loaded.includes(index) ? loaded : [...loaded, index]);
   }, [state]);
-
-  React.useEffect(() => {
-    console.log(loaded);
-  }, [loaded]);
 
   // false = Portrait
   // true = Landscape
@@ -253,9 +247,10 @@ export default function TabBarElement({
         const event = navigation.emit({
           type: "tabPress",
           target: route.key,
+          canPreventDefault: true,
         });
 
-        if (!event.defaultPrevented) {
+        if (!focused && !event.defaultPrevented) {
           navigation.navigate(route.name);
         }
       }
