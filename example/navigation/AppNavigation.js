@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, TouchableOpacity, Image } from 'react-native'
 import { AnimatedTabBarNavigator } from 'react-native-animated-nav-tab-bar'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/Feather'
 import styled from 'styled-components/native'
 
@@ -21,7 +22,7 @@ const Logo = () => (
 	/>
 )
 
-const TabBarIcon = (props) => {
+const TabBarIcon = props => {
 	return (
 		<Icon
 			name={props.name}
@@ -31,7 +32,7 @@ const TabBarIcon = (props) => {
 	)
 }
 
-const Home = (props) => (
+const Home = props => (
 	<Screen>
 		<Logo />
 		<Text>Home</Text>
@@ -41,7 +42,7 @@ const Home = (props) => (
 	</Screen>
 )
 
-const Discover = (props) => (
+const Discover = props => (
 	<Screen>
 		<Logo />
 		<Text>Discover</Text>
@@ -58,29 +59,22 @@ const Images = () => (
 	</Screen>
 )
 
-const Profile = () => (
-	<Screen>
-		<Logo />
-		<Text>Profile</Text>
-	</Screen>
-)
+class Profile extends React.Component {
+	componentDidMount() {
+		console.log('DID')
+	}
+	render() {
+		return (
+			<Screen>
+				<Logo />
+				<Text>Profile</Text>
+			</Screen>
+		)
+	}
+}
 
 export default () => (
-	<Tabs.Navigator
-		tabBarOptions={{
-			activeTintColor: 'black',
-			inactiveTintColor: 'black',
-			activeBackgroundColor: '#FFCF64',
-			labelStyle: {
-				fontWeight: 'bold',
-			},
-		}}
-		appearence={{
-			floating: true,
-			topPadding: 10,
-			horizontalPadding: 10,
-		}}
-		initialRouteName="Home">
+	<Tabs.Navigator initialRouteName="Home">
 		<Tabs.Screen
 			name="Home"
 			component={Home}

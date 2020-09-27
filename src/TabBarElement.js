@@ -1,7 +1,15 @@
 import React from "react";
+import { ScreenContainer } from "react-native-screens";
 
 // UI Components imports
-import { Animated, BackHandler, View, Dimensions } from "react-native";
+import {
+  Animated,
+  BackHandler,
+  View,
+  Dimensions,
+  StyleSheet,
+  Text,
+} from "react-native";
 import {
   TabButton,
   BottomTabBarWrapper,
@@ -9,6 +17,7 @@ import {
   Label,
   SHADOW,
 } from "./UIComponents";
+import ResourceSavingScene from "./ResourceSavingScreen";
 
 /**
  * @name TabBarElement
@@ -29,10 +38,12 @@ export default function TabBarElement({
   descriptors,
   appearence,
   tabBarOptions,
+  lazy,
 }) {
   // Apprearence options destruction
   const {
     topPadding,
+    bottomPadding,
     horizontalPadding,
     tabBarBackground,
     activeTabBackgrounds,
@@ -59,6 +70,18 @@ export default function TabBarElement({
   const [width, setWidth] = React.useState(0);
   const [height, setHeight] = React.useState(0);
   const [animatedPos] = React.useState(() => new Animated.Value(1));
+  const [loaded, setLoaded] = React.useState([state.index]);
+
+  React.useEffect(() => {
+    const { index } = state;
+    console.log(index);
+    console.log(loaded);
+    setLoaded(loaded.includes(index) ? loaded : [...loaded, index]);
+  }, [state]);
+
+  React.useEffect(() => {
+    console.log(loaded);
+  }, [loaded]);
 
   // false = Portrait
   // true = Landscape
@@ -342,39 +365,83 @@ export default function TabBarElement({
     position: "absolute",
   };
 
+  const { options } = descriptors[state.routes[state.index].key];
+  const tabBarVisible =
+    options.tabBarVisible == undefined ? true : options.tabBarVisible;
   return (
     <React.Fragment>
       {/* Current Screen */}
-      <View style={[{ flex: 1 }]}>
-        {descriptors[state.routes[state.index].key].render()}
+      <View
+        style={{
+          flex: 1,
+          overflow: "hidden",
+        }}
+      >
+        <ScreenContainer style={{ flex: 1 }}>
+          {state.routes.map((route, index) => {
+            const descriptor = descriptors[route.key];
+            const { unmountOnBlur } = descriptor.options;
+            const isFocused = state.index === index;
+
+            if (unmountOnBlur && !isFocused) {
+              return null;
+            }
+
+            if (lazy && !loaded.includes(index) && !isFocused) {
+              // Don't render a screen if we've never navigated to it
+              return null;
+            }
+
+            return (
+              <ResourceSavingScene
+                key={route.key}
+                isVisible={isFocused}
+                style={StyleSheet.absoluteFill}
+              >
+                <View
+                  accessibilityElementsHidden={!isFocused}
+                  importantForAccessibility={
+                    isFocused ? "auto" : "no-hide-descendants"
+                  }
+                  style={{ flex: 1 }}
+                >
+                  {descriptor.render()}
+                </View>
+              </ResourceSavingScene>
+            );
+          })}
+        </ScreenContainer>
       </View>
       {/* Tab Bar */}
-      <View pointerEvents={"box-none"} style={overlayStyle}>
-        <BottomTabBarWrapper
-          floating={floating}
-          style={tabStyle}
-          topPadding={topPadding}
-          horizontalPadding={horizontalPadding}
-          tabBarBackground={tabBarBackground}
-          shadow={shadow && SHADOW}
-        >
-          {state.routes.map(createTab)}
-          {/* Animated Dot / Background */}
-          <Dot
-            dotCornerRadius={dotCornerRadius}
+      {tabBarVisible && (
+        <View pointerEvents={"box-none"} style={overlayStyle}>
+          <BottomTabBarWrapper
+            floating={floating}
+            style={tabStyle}
             topPadding={topPadding}
-            activeTabBackground={activeTabBackground}
-            style={{
-              left: animatedPos.interpolate({
-                inputRange: [0, 1],
-                outputRange: [prevPos, pos],
-              }),
-            }}
-            width={width}
-            height={height}
-          />
-        </BottomTabBarWrapper>
-      </View>
+            bottomPadding={bottomPadding}
+            horizontalPadding={horizontalPadding}
+            tabBarBackground={tabBarBackground}
+            shadow={shadow && SHADOW}
+          >
+            {state.routes.map(createTab)}
+            {/* Animated Dot / Background */}
+            <Dot
+              dotCornerRadius={dotCornerRadius}
+              topPadding={topPadding}
+              activeTabBackground={activeTabBackground}
+              style={{
+                left: animatedPos.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [prevPos, pos],
+                }),
+              }}
+              width={width}
+              height={height}
+            />
+          </BottomTabBarWrapper>
+        </View>
+      )}
     </React.Fragment>
   );
 }

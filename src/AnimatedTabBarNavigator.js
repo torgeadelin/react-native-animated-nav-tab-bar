@@ -6,6 +6,28 @@ import {
 } from "@react-navigation/native";
 import TabBarElement from "./TabBarElement";
 
+const defaultAppearence = {
+  topPadding: 10,
+  bottomPadding: 10,
+  horizontalPadding: 10,
+  tabBarBackground: "#FFFFFF",
+  floating: false,
+  dotCornerRadius: 100,
+  whenActiveShow: "both",
+  whenInactiveShow: "icon-only",
+  shadow: false,
+  dotSize: 100,
+};
+
+const defaultTabBarOptions = {
+  activeTintColor: "black",
+  inactiveTintColor: "black",
+  activeBackgroundColor: "#FFCF64",
+  labelStyle: {
+    fontWeight: "bold",
+  },
+};
+
 function BottomTabNavigator({
   initialRouteName,
   backBehavior,
@@ -22,41 +44,25 @@ function BottomTabNavigator({
     screenOptions,
   });
 
-  const defaultAppearence = {
-    topPadding: 20,
-    horizontalPadding: 20,
-    tabBarBackground: "#FFFFFF",
-    floating: false,
-    dotCornerRadius: 100,
-    whenActiveShow: "both",
-    whenInactiveShow: "icon-only",
-    shadow: true,
-    dotSize: 100,
-  };
-
   return (
     <TabBarElement
       {...rest}
       state={state}
       navigation={navigation}
       descriptors={descriptors}
-      tabBarOptions={tabBarOptions}
+      tabBarOptions={{ ...defaultTabBarOptions, ...tabBarOptions }}
       appearence={{ ...defaultAppearence, ...appearence }}
+      lazy={true}
     />
   );
 }
 
 TabBarElement.defaultProps = {
   appearence: {
-    topPadding: 20,
-    horizontalPadding: 20,
-    tabBarBackground: "#FFFFFF",
-    floating: false,
-    dotCornerRadius: 100,
-    whenActiveShow: "both",
-    whenInactiveShow: "icon-only",
-    shadow: true,
-    dotSize: 100,
+    ...defaultAppearence,
+  },
+  tabBarOptions: {
+    ...defaultTabBarOptions,
   },
 };
 

@@ -4,7 +4,7 @@ import Styled, { css } from "styled-components";
 import { isIphoneX } from "./utils/iPhoneX";
 
 // Config
-const BOTTOM_PADDING = 10;
+const BOTTOM_PADDING = 20;
 const BOTTOM_PADDING_IPHONE_X = 30;
 
 const floatingMarginBottom = css`
@@ -26,10 +26,10 @@ const BottomTabBarWrapper = Styled.View`
 	${(p) => p.floating && floatingRoundCorner};
     padding-bottom: ${(p) =>
       p.floating
-        ? BOTTOM_PADDING * 2
+        ? p.bottomPadding
         : isIphoneX()
-        ? BOTTOM_PADDING_IPHONE_X
-        : BOTTOM_PADDING};
+        ? BOTTOM_PADDING_IPHONE_X + p.bottomPadding
+        : p.bottomPadding};
     padding-top: ${(p) => p.topPadding};
     padding-horizontal: ${(p) => p.horizontalPadding};
     background-color: ${(p) => p.tabBarBackground};
