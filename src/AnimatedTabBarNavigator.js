@@ -52,7 +52,6 @@ function BottomTabNavigator({
       descriptors={descriptors}
       tabBarOptions={{ ...defaultTabBarOptions, ...tabBarOptions }}
       appearence={{ ...defaultAppearence, ...appearence }}
-      lazy={true}
     />
   );
 }
@@ -64,6 +63,10 @@ TabBarElement.defaultProps = {
   tabBarOptions: {
     ...defaultTabBarOptions,
   },
+};
+
+BottomTabNavigator.defaultProps = {
+  lazy: true,
 };
 
 export default createNavigatorFactory(BottomTabNavigator);
