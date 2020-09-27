@@ -14,14 +14,14 @@
 		"@react-navigation/bottom-tabs": "^5.2.7",
 		"@react-navigation/native": "^5.1.6",
 		"@react-navigation/stack": "^5.2.11",
-		"react": "16.11.0",
-		"react-native": "0.62.2",
-		"react-native-animated-nav-tab-bar": "file:../react-native-animated-nav-tab-bar-3.0.5.tgz",
+		"react": "^16.13.1",
+		"react-native": "0.63.0",
+		"react-native-animated-nav-tab-bar": "../react-native-animated-nav-tab-bar-3.0.4.tgz",
 		"react-native-gesture-handler": "^1.6.1",
 		"react-native-reanimated": "^1.8.0",
 		"react-native-safe-area-context": "^0.7.3",
 		"react-native-screens": "^2.5.0",
-		"react-native-vector-icons": "^6.6.0",
+		"react-native-vector-icons": "6.6.0",
 		"react-navigation": "^4.3.7"
 	},
 	"devDependencies": {
