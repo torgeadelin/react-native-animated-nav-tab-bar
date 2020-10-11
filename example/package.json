@@ -16,7 +16,7 @@
 		"@react-navigation/stack": "^5.9.3",
 		"react": "^16.13.1",
 		"react-native": "0.63.2",
-		"react-native-animated-nav-tab-bar": "^3.0.4",
+		"react-native-animated-nav-tab-bar": "^3.0.5",
 		"react-native-gesture-handler": "^1.6.1",
 		"react-native-reanimated": "^1.8.0",
 		"react-native-safe-area-context": "^0.7.3",
