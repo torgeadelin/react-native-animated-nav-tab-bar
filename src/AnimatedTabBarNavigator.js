@@ -17,6 +17,7 @@ const defaultAppearence = {
   whenInactiveShow: "icon-only",
   shadow: false,
   dotSize: 100,
+  tabButtonLayout: "horizontal",
 };
 
 const defaultTabBarOptions = {

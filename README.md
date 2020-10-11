@@ -15,6 +15,11 @@
 
 ## 📆 Updates / Changelog
 
+- _October 11 2020_
+  - Updated react-navigation dependencies in example folder to latest
+  - Fixed useScrollToTop bug
+  - Fix Tab bar overlays scrollview content
+  - Added new config for icon button layour/orientation
 - _September 27 2020_
   - Updated example to rn 0.63
   - Fixed issue #37 where screens would re-render on every tab change. Also added the lazy option found in the default react navigation tabbar
@@ -175,7 +180,7 @@ The navigation component takes two main props which help you customise your navi
 
 - **appearence**
 
-  - `topPadding` (default: 20) - Space between the tab button and the wrapper (top)
+  - ✅`topPadding` (default: 20) - Space between the tab button and the wrapper (top)
   - ✅`horizontalPadding` (default: 20) - Vertical space between for the tab buttons
   - ✅`tabBarBackground` (default: "white") - Backgorund color for the wrapper that contains the navigation tabs
   - ✅`shadow` (default: true) - If set to true, the wrapper has a light shadow
@@ -186,6 +191,7 @@ The navigation component takes two main props which help you customise your navi
   - ✅`floating` (default: false) - If set to true, the nav bar will float on top of the current screen. Look at examples above.
   - ✅`whenActiveShow` (default: "both") Configure the appearence of the active tab. Available values `both`, `label-only`, `icon-only`.
   - ✅`whenInactiveShow` (default: "icon-only") Configure the appearence of the inactive tabs. Available values `both`, `label-only`, `icon-only`.
+  - ✅`tabButtonLayout` (default: "horizontal") Congifure the layour of the tab button. Available values `vertical`, `horizontal`.
 
   - ✅`dotCornerRadius` (default: 100) Corner radius for the active background / dot.
   - ✅`dotSize` (default: "medium") Size of dot for the active tab. Available values `small`, `medium`, `large`.
