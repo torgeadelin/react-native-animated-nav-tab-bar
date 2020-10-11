@@ -8,7 +8,6 @@ import {
   View,
   Dimensions,
   StyleSheet,
-  Text,
 } from "react-native";
 import {
   TabButton,
@@ -18,6 +17,7 @@ import {
   SHADOW,
 } from "./UIComponents";
 import ResourceSavingScene from "./ResourceSavingScene";
+import { CommonActions } from "@react-navigation/native";
 
 /**
  * @name TabBarElement
@@ -54,6 +54,7 @@ export default function TabBarElement({
     whenInactiveShow,
     dotSize,
     shadow,
+    tabButtonLayout,
   } = appearence;
 
   const {
@@ -209,6 +210,7 @@ export default function TabBarElement({
       if (typeof label === "string") {
         return (
           <Label
+            tabButtonLayout={tabButtonLayout}
             whenActiveShow={whenActiveShow}
             whenInactiveShow={whenInactiveShow}
             style={labelStyle}
@@ -239,20 +241,21 @@ export default function TabBarElement({
      * Emits an event to the navigation
      */
     const onPress = () => {
-      if (!focused) {
-        animation(animatedPos).start(() => {
-          updatePrevPos();
-        });
+      animation(animatedPos).start(() => {
+        updatePrevPos();
+      });
 
-        const event = navigation.emit({
-          type: "tabPress",
-          target: route.key,
-          canPreventDefault: true,
-        });
+      const event = navigation.emit({
+        type: "tabPress",
+        target: route.key,
+        canPreventDefault: true,
+      });
 
-        if (!focused && !event.defaultPrevented) {
-          navigation.navigate(route.name);
-        }
+      if (!focused && !event.defaultPrevented) {
+        navigation.dispatch({
+          ...CommonActions.navigate(route.name),
+          target: state.key,
+        });
       }
     };
 
@@ -261,16 +264,14 @@ export default function TabBarElement({
      * Emits an event to the navigation
      */
     const onLongPress = () => {
-      if (!focused) {
-        animation(animatedPos).start(() => {
-          updatePrevPos();
-        });
+      animation(animatedPos).start(() => {
+        updatePrevPos();
+      });
 
-        navigation.emit({
-          type: "tabLongPress",
-          target: route.key,
-        });
-      }
+      navigation.emit({
+        type: "tabLongPress",
+        target: route.key,
+      });
     };
 
     /**
@@ -344,6 +345,7 @@ export default function TabBarElement({
         whenActiveShow={whenActiveShow}
         whenInactiveShow={whenInactiveShow}
         dotSize={dotSize}
+        tabButtonLayout={tabButtonLayout}
       >
         {labelAndIcon()}
       </TabButton>
@@ -409,7 +411,7 @@ export default function TabBarElement({
       </View>
       {/* Tab Bar */}
       {tabBarVisible && (
-        <View pointerEvents={"box-none"} style={overlayStyle}>
+        <View pointerEvents={"box-none"} style={floating && overlayStyle}>
           <BottomTabBarWrapper
             floating={floating}
             style={tabStyle}

@@ -56,8 +56,10 @@ const calculateDotSize = (size) => {
 const TabButton = Styled.TouchableOpacity`
 	flex: 1;
 	flex-direction: ${(p) =>
-    p.whenInactiveShow == "both" && p.whenActiveShow == "both"
+    p.tabButtonLayout == "vertical"
       ? "column"
+      : p.tabButtonLayout == "horizontal"
+      ? "row"
       : "row"};
 	justify-content: center;
 	align-items: center;
@@ -72,7 +74,10 @@ const Label = Styled(Animated.Text)`
     p.whenInactiveShow == "both" || p.whenActiveShow == "both" ? "14" : "17"};
 	color: ${(p) => p.activeColor};
 	margin-left: ${(p) =>
-    p.whenActiveShow == "both" || p.whenInactiveShow == "both" ? 8 : 0};
+    (p.whenActiveShow == "both" || p.whenInactiveShow == "both") &&
+    p.tabButtonLayout == "horizontal"
+      ? 8
+      : 0};
 `;
 
 const Dot = Styled(Animated.View)`
