@@ -8,6 +8,7 @@ import {
   View,
   Dimensions,
   StyleSheet,
+  Platform
 } from "react-native";
 import {
   TabButton,

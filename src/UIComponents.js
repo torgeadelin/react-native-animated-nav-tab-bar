@@ -1,6 +1,6 @@
 import react from "react";
 import { Animated } from "react-native";
-import Styled, { css } from "styled-components";
+import Styled, { css, View, TouchableOpacity } from "styled-components";
 import { isIphoneX } from "./utils/iPhoneX";
 
 // Config
@@ -18,7 +18,7 @@ const floatingRoundCorner = css`
   border-radius: 40px;
 `;
 
-const BottomTabBarWrapper = Styled.View`
+const BottomTabBarWrapper = Styled(View)`
 	flex-direction: row;
 	${(p) => p.floating && floatingMarginHorizontal};
     elevation: 2;
@@ -53,7 +53,7 @@ const calculateDotSize = (size) => {
   }
 };
 
-const TabButton = Styled.TouchableOpacity`
+const TabButton = Styled(TouchableOpacity)`
 	flex: 1;
 	flex-direction: ${(p) =>
     p.tabButtonLayout == "vertical"
