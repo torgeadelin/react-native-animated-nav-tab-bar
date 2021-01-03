@@ -9,7 +9,7 @@ export default class ResourceSavingScene extends React.Component {
     if (screensEnabled?.() && Platform.OS !== "web") {
       const { isVisible, ...rest } = this.props;
 
-      return <Screen active={isVisible ? 1 : 0} {...rest} />;
+      return <Screen activityState={isVisible ? 2 : 0} {...rest} />;
     }
 
     const { isVisible, children, style, ...rest } = this.props;
