@@ -4,20 +4,22 @@ import {
   createNavigatorFactory,
   TabRouter,
 } from "@react-navigation/native";
-import TabBarElement from "./TabBarElement";
+import TabBarElement, { DotSize, IAppearenceOptions, TabButtonLayout, TabElementDisplayOptions } from "./TabBarElement";
 
-const defaultAppearence = {
+const defaultAppearence: IAppearenceOptions = {
   topPadding: 10,
   bottomPadding: 10,
   horizontalPadding: 10,
   tabBarBackground: "#FFFFFF",
   floating: false,
   dotCornerRadius: 100,
-  whenActiveShow: "both",
-  whenInactiveShow: "icon-only",
+  whenActiveShow: TabElementDisplayOptions.BOTH,
+  whenInactiveShow: TabElementDisplayOptions.ICON_ONLY,
   shadow: false,
-  dotSize: 100,
-  tabButtonLayout: "horizontal",
+  dotSize: DotSize.DEFAULT,
+  tabButtonLayout: TabButtonLayout.HORIZONTAL,
+  activeColors: undefined,
+  activeTabBackgrounds: undefined,
 };
 
 const defaultTabBarOptions = {
@@ -29,7 +31,7 @@ const defaultTabBarOptions = {
   },
 };
 
-function BottomTabNavigator({
+const BottomTabNavigator = ({
   initialRouteName,
   backBehavior,
   children,
@@ -37,7 +39,8 @@ function BottomTabNavigator({
   tabBarOptions,
   appearence,
   ...rest
-}) {
+}) => {
+  
   const { state, descriptors, navigation } = useNavigationBuilder(TabRouter, {
     initialRouteName,
     backBehavior,
@@ -56,15 +59,6 @@ function BottomTabNavigator({
     />
   );
 }
-
-TabBarElement.defaultProps = {
-  appearence: {
-    ...defaultAppearence,
-  },
-  tabBarOptions: {
-    ...defaultTabBarOptions,
-  },
-};
 
 BottomTabNavigator.defaultProps = {
   lazy: true,

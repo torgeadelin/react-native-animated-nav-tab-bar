@@ -10,6 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/torgeadelin/react-native-animated-nav-tab-bar.git"
   },
+  "types": "index.d.ts",
   "keywords": [
     "react",
     "react-native",
@@ -34,8 +35,15 @@
   },
   "dependencies": {
     "@react-navigation/native": "^5.1.6",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.21",
+    "@types/react": "^17.0.0",
+    "@types/react-native": "^0.63.45",
+    "@types/react-test-renderer": "^17.0.0",
+    "@types/styled-components": "^5.1.7",
     "prop-types": "^15.7.2",
     "react-native-screens": "^2.11.0",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "typescript": "^4.1.3"
   }
 }

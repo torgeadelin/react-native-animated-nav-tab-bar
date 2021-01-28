@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ScreenContainer } from "react-native-screens";
 
 // UI Components imports
@@ -8,6 +8,7 @@ import {
   View,
   Dimensions,
   StyleSheet,
+  Platform,
 } from "react-native";
 import {
   TabButton,
@@ -17,7 +18,50 @@ import {
   SHADOW,
 } from "./UIComponents";
 import ResourceSavingScene from "./ResourceSavingScene";
-import { CommonActions } from "@react-navigation/native";
+import { CommonActions, Descriptor, TabNavigationState } from "@react-navigation/native";
+
+export enum TabElementDisplayOptions {
+  ICON_ONLY = "icon-only",
+  LABEL_ONLY = 'label-only',
+  BOTH = 'both'
+}
+
+export enum DotSize {
+  SMALL = 'small',
+  MEDIUM = 'medium',
+  LARGE = 'large',
+  DEFAULT = 'default' // not in docs
+}
+
+export enum TabButtonLayout {
+  VERTICAL = 'vertical',
+  HORIZONTAL = 'horizontal'
+}
+
+export interface IAppearenceOptions {
+  topPadding: number;
+  bottomPadding: number;
+  horizontalPadding: number;
+  tabBarBackground: string;
+  activeTabBackgrounds: string;
+  activeColors: string | string[];
+  floating: boolean;
+  dotCornerRadius: number;
+  whenActiveShow: TabElementDisplayOptions;
+  whenInactiveShow: TabElementDisplayOptions;
+  dotSize: DotSize;
+  shadow: boolean;
+  tabButtonLayout: TabButtonLayout
+}
+
+interface TabBarElementProps {
+  state: TabNavigationState;
+  navigation: any;
+  descriptors: Record<string, Descriptor<Record<string, object>, string, TabNavigationState, any, {}>>;
+  appearence: IAppearenceOptions;
+  tabBarOptions?: any;
+  lazy?: boolean;
+}
 
 /**
  * @name TabBarElement
@@ -32,14 +76,14 @@ import { CommonActions } from "@react-navigation/native";
  *
  * @return function that creates the custom tab bar
  */
-export default function TabBarElement({
+export const TabBarElement = ({
   state,
   navigation,
   descriptors,
   appearence,
   tabBarOptions,
   lazy,
-}) {
+}: TabBarElementProps) => {
   // Apprearence options destruction
   const {
     topPadding,
@@ -66,21 +110,21 @@ export default function TabBarElement({
   } = tabBarOptions;
 
   // State
-  const [prevPos, setPrevPos] = React.useState(horizontalPadding);
-  const [pos, setPos] = React.useState(prevPos);
-  const [width, setWidth] = React.useState(0);
-  const [height, setHeight] = React.useState(0);
-  const [animatedPos] = React.useState(() => new Animated.Value(1));
-  const [loaded, setLoaded] = React.useState([state.index]);
+  const [prevPos, setPrevPos] = useState(horizontalPadding);
+  const [pos, setPos] = useState(prevPos);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [animatedPos] = useState(() => new Animated.Value(1));
+  const [loaded, setLoaded] = useState([state.index]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const { index } = state;
     setLoaded(loaded.includes(index) ? loaded : [...loaded, index]);
   }, [state]);
 
   // false = Portrait
   // true = Landscape
-  const [isPortrait, setIsPortrait] = React.useState(true);
+  const [isPortrait, setIsPortrait] = useState(true);
 
   // Reset animation when changing screen orietation
   Dimensions.addEventListener("change", () => {
@@ -134,9 +178,10 @@ export default function TabBarElement({
     animation(animatedPos).start(() => {
       updatePrevPos();
     });
+    return true;
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     animation(animatedPos).start(() => {
       updatePrevPos();
     });
@@ -155,7 +200,7 @@ export default function TabBarElement({
   /**
    * Animate whenever the navigation state changes
    */
-  React.useEffect(() => {
+  useEffect(() => {
     animation(animatedPos).start(() => {
       updatePrevPos();
     });
@@ -183,7 +228,7 @@ export default function TabBarElement({
    * @param {*} routeIndex
    * @returns React.Node with the button component
    */
-  const createTab = (route, routeIndex) => {
+  const createTab = (route, routeIndex: number) => {
     const focused = routeIndex == state.index;
     const { options } = descriptors[route.key];
     const tintColor = focused ? activeColor : inactiveTintColor;
@@ -194,15 +239,15 @@ export default function TabBarElement({
       options.tabBarLabel !== undefined
         ? options.tabBarLabel
         : options.title !== undefined
-        ? options.title
-        : route.name;
+          ? options.title
+          : route.name;
 
     const accessibilityLabel =
       options.tabBarAccessibilityLabel !== undefined
         ? options.tabBarAccessibilityLabel
         : typeof label === "string"
-        ? `${label}, tab, ${routeIndex + 1} of ${state.routes.length}`
-        : undefined;
+          ? `${label}, tab, ${routeIndex + 1} of ${state.routes.length}`
+          : undefined;
 
     // Render the label next to the icon
     // only if showLabel is true
@@ -290,16 +335,16 @@ export default function TabBarElement({
     const labelAndIcon = () => {
       if (focused) {
         switch (whenActiveShow) {
-          case "both":
+          case TabElementDisplayOptions.BOTH:
             return (
               <React.Fragment>
                 <View>{renderIcon()}</View>
                 {renderLabel()}
               </React.Fragment>
             );
-          case "label-only":
+          case TabElementDisplayOptions.LABEL_ONLY:
             return renderLabel();
-          case "icon-only":
+          case TabElementDisplayOptions.ICON_ONLY:
             return renderIcon();
           default:
             return (
@@ -311,16 +356,16 @@ export default function TabBarElement({
         }
       } else {
         switch (whenInactiveShow) {
-          case "both":
+          case TabElementDisplayOptions.BOTH:
             return (
               <React.Fragment>
                 <View>{renderIcon()}</View>
                 {renderLabel()}
               </React.Fragment>
             );
-          case "label-only":
+          case TabElementDisplayOptions.LABEL_ONLY:
             return renderLabel();
-          case "icon-only":
+          case TabElementDisplayOptions.ICON_ONLY:
             return renderIcon();
           default:
             return (
@@ -352,15 +397,17 @@ export default function TabBarElement({
     );
   };
 
-  const overlayStyle = {
-    top: 0,
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    position: "absolute",
-  };
+  const { overlayStyle } = StyleSheet.create({
+    overlayStyle: {
+      top: 0,
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "flex-end",
+      position: "absolute",
+    }
+  });
 
   const { options } = descriptors[state.routes[state.index].key];
   const tabBarVisible =
@@ -442,3 +489,5 @@ export default function TabBarElement({
     </React.Fragment>
   );
 }
+
+export default TabBarElement;

@@ -1,6 +1,7 @@
 import react from "react";
 import { Animated } from "react-native";
-import Styled, { css } from "styled-components";
+import Styled, { css } from "styled-components/native";
+import { DotSize, TabButtonLayout, TabElementDisplayOptions } from "./TabBarElement";
 import { isIphoneX } from "./utils/iPhoneX";
 
 // Config
@@ -37,17 +38,14 @@ const BottomTabBarWrapper = Styled.View`
 
   `;
 
-const calculateDotSize = (size) => {
+const calculateDotSize = (size: DotSize) => {
   switch (size) {
-    case "small":
+    case DotSize.SMALL:
       return 40;
-      break;
-    case "medium":
+    case DotSize.MEDIUM:
       return 10;
-      break;
-    case "large":
+    case DotSize.LARGE:
       return 5;
-      break;
     default:
       return 10;
   }
@@ -56,9 +54,9 @@ const calculateDotSize = (size) => {
 const TabButton = Styled.TouchableOpacity`
 	flex: 1;
 	flex-direction: ${(p) =>
-    p.tabButtonLayout == "vertical"
+    p.tabButtonLayout == TabButtonLayout.VERTICAL
       ? "column"
-      : p.tabButtonLayout == "horizontal"
+      : p.tabButtonLayout == TabButtonLayout.VERTICAL
       ? "row"
       : "row"};
 	justify-content: center;
@@ -71,11 +69,11 @@ const TabButton = Styled.TouchableOpacity`
 
 const Label = Styled(Animated.Text)`
 	fontSize: ${(p) =>
-    p.whenInactiveShow == "both" || p.whenActiveShow == "both" ? "14" : "17"};
+    p.whenInactiveShow == TabElementDisplayOptions.BOTH || p.whenActiveShow == TabElementDisplayOptions.BOTH ? "14" : "17"};
 	color: ${(p) => p.activeColor};
 	margin-left: ${(p) =>
-    (p.whenActiveShow == "both" || p.whenInactiveShow == "both") &&
-    p.tabButtonLayout == "horizontal"
+    (p.whenActiveShow == TabElementDisplayOptions.BOTH || p.whenInactiveShow == TabElementDisplayOptions.BOTH) &&
+    p.tabButtonLayout == TabButtonLayout.HORIZONTAL
       ? 8
       : 0};
 `;
