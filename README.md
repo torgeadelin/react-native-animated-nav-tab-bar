@@ -15,6 +15,11 @@
 
 ## 📆 Updates / Changelog
 
+_ _January 29 20201_
+  - Typescript support 👀 including custom enums for some of the appearence properties
+  - Added Rollup as a module bundler 
+  - Fixed Invalid Hook Call bug #62
+  - Fixed `have your wrapper your NavigationContainer` bug. Please update to react-navigation/native 5.9.0, stack 5.13.0, bottom-tabs 5.11.3
 - _October 11 2020_
   - Updated react-navigation dependencies in example folder to latest
   - Fixed useScrollToTop bug
@@ -96,7 +101,17 @@ npm install react-native-animated-nav-tab-bar
 #### Import
 
 ```javascript
+// Javascript
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
+// Typescript
+import {
+  AnimatedTabBarNavigator,
+  DotSize, // optional
+  TabElementDisplayOptions, // optional
+  TabButtonLayout, // optional
+  IAppearenceOptions // optional
+} from 'react-native-animated-nav-tab-bar'
+
 ```
 
 #### Initialise
@@ -205,6 +220,8 @@ The navigation component takes two main props which help you customise your navi
 ## Contributing
 
 Pull requests are always welcome! Feel free to open a new GitHub issue for any changes that can be made.
+
+If you raise an issue, please add proper steps to reproduce it and proper logs. Thanks!
 
 **Working on your first Pull Request?** You can learn how from this free series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
 
