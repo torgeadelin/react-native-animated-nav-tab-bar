@@ -15,49 +15,16 @@ import {
   BottomTabBarWrapper,
   Dot,
   Label,
-  SHADOW,
 } from "./UIComponents";
 import ResourceSavingScene from "./ResourceSavingScene";
-import { CommonActions, Descriptor, TabNavigationState } from "@react-navigation/native";
+import { CommonActions, Descriptor, NavigationState, PartialState, TabNavigationState, Route } from "@react-navigation/native";
+import { IAppearenceOptions, TabElementDisplayOptions } from "./types";
 
-export enum TabElementDisplayOptions {
-  ICON_ONLY = "icon-only",
-  LABEL_ONLY = 'label-only',
-  BOTH = 'both'
-}
-
-export enum DotSize {
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  LARGE = 'large',
-  DEFAULT = 'default' // not in docs
-}
-
-export enum TabButtonLayout {
-  VERTICAL = 'vertical',
-  HORIZONTAL = 'horizontal'
-}
-
-export interface IAppearenceOptions {
-  topPadding: number;
-  bottomPadding: number;
-  horizontalPadding: number;
-  tabBarBackground: string;
-  activeTabBackgrounds: string;
-  activeColors: string | string[];
-  floating: boolean;
-  dotCornerRadius: number;
-  whenActiveShow: TabElementDisplayOptions;
-  whenInactiveShow: TabElementDisplayOptions;
-  dotSize: DotSize;
-  shadow: boolean;
-  tabButtonLayout: TabButtonLayout
-}
 
 interface TabBarElementProps {
-  state: TabNavigationState;
+  state: TabNavigationState<Record<string, object | undefined>>;
   navigation: any;
-  descriptors: Record<string, Descriptor<Record<string, object>, string, TabNavigationState, any, {}>>;
+  descriptors: Record<string, Descriptor<Record<string, object | undefined>, string, TabNavigationState<Record<string, object | undefined>>, any, {}>>;
   appearence: IAppearenceOptions;
   tabBarOptions?: any;
   lazy?: boolean;
@@ -76,7 +43,7 @@ interface TabBarElementProps {
  *
  * @return function that creates the custom tab bar
  */
-export const TabBarElement = ({
+export default ({
   state,
   navigation,
   descriptors,
@@ -153,7 +120,7 @@ export const TabBarElement = ({
    * @returns Animated.CompositeAnimation
    * Use .start() to start the animation
    */
-  const animation = (val) =>
+  const animation = (val: Animated.Value) =>
     Animated.spring(val, {
       toValue: 1,
       useNativeDriver: false,
@@ -228,7 +195,7 @@ export const TabBarElement = ({
    * @param {*} routeIndex
    * @returns React.Node with the button component
    */
-  const createTab = (route, routeIndex: number) => {
+  const createTab = (route: (Route<string> & { state?: NavigationState | PartialState<NavigationState> | undefined;}), routeIndex: number) => {
     const focused = routeIndex == state.index;
     const { options } = descriptors[route.key];
     const tintColor = focused ? activeColor : inactiveTintColor;
@@ -324,7 +291,7 @@ export const TabBarElement = ({
      * and update animation state
      * @param {*} e
      */
-    const onLayout = (e) => {
+    const onLayout = (e: any) => {
       if (focused) {
         setPos(e.nativeEvent.layout.x);
         setWidth(e.nativeEvent.layout.width);
@@ -387,8 +354,6 @@ export const TabBarElement = ({
         onLayout={onLayout}
         onPress={onPress}
         onLongPress={onLongPress}
-        whenActiveShow={whenActiveShow}
-        whenInactiveShow={whenInactiveShow}
         dotSize={dotSize}
         tabButtonLayout={tabButtonLayout}
       >
@@ -460,13 +425,13 @@ export const TabBarElement = ({
       {tabBarVisible && (
         <View pointerEvents={"box-none"} style={floating && overlayStyle}>
           <BottomTabBarWrapper
-            floating={floating}
             style={tabStyle}
+            floating={floating}
             topPadding={topPadding}
             bottomPadding={bottomPadding}
             horizontalPadding={horizontalPadding}
             tabBarBackground={tabBarBackground}
-            shadow={shadow && SHADOW}
+            shadow={shadow}
           >
             {state.routes.map(createTab)}
             {/* Animated Dot / Background */}
@@ -489,5 +454,3 @@ export const TabBarElement = ({
     </React.Fragment>
   );
 }
-
-export default TabBarElement;

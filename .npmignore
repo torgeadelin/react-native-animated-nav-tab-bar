@@ -8,8 +8,12 @@ node_modules
 # Runtime data
 tmp
 
+dist
+
 # Examples
 example
+example-typescript
+.metals
 config1.png                   
 config2.png                   
 config3.png                   

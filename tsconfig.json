@@ -1,21 +1,20 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "jsx": "react",
+    "module": "esnext",
+    "target": "es5",
     "lib": ["es6"],
+    "jsx": "react",
+    "allowJs": false,
     "moduleResolution": "node",
-    "noEmit": true,
-    "strict": false,
-    "target": "esnext"
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true
   },
-  "exclude": [
-    "node_modules",
-    "babel.config.js",
-    "metro.config.js",
-    "jest.config.js"
-  ],
-  "declaration": true
+  "include": ["./src/*/*", "./index.ts"],
 }

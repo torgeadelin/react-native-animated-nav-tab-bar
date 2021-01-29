@@ -4,7 +4,8 @@ import {
   createNavigatorFactory,
   TabRouter,
 } from "@react-navigation/native";
-import TabBarElement, { DotSize, IAppearenceOptions, TabButtonLayout, TabElementDisplayOptions } from "./TabBarElement";
+import TabBarElement from "./TabBarElement";
+import { DotSize, IAppearenceOptions, TabButtonLayout, TabElementDisplayOptions } from './types';
 
 const defaultAppearence: IAppearenceOptions = {
   topPadding: 10,
@@ -31,6 +32,15 @@ const defaultTabBarOptions = {
   },
 };
 
+interface IBottomTabNavigatorProps {
+  initialRouteName?: string;
+  backBehavior?: "history" | "initialRoute" | "order" | "none" | undefined;
+  children: React.ReactNode;
+  screenOptions?: any;
+  tabBarOptions?: any;
+  appearence: Partial<IAppearenceOptions>;  
+}
+
 const BottomTabNavigator = ({
   initialRouteName,
   backBehavior,
@@ -39,7 +49,7 @@ const BottomTabNavigator = ({
   tabBarOptions,
   appearence,
   ...rest
-}) => {
+}: IBottomTabNavigatorProps) => {
   
   const { state, descriptors, navigation } = useNavigationBuilder(TabRouter, {
     initialRouteName,
@@ -48,14 +58,24 @@ const BottomTabNavigator = ({
     screenOptions,
   });
 
+  const finalAppearence: IAppearenceOptions = {
+    ...defaultAppearence,
+    ...appearence
+  }
+
+  const finalTabBarOptions = {
+    ...defaultTabBarOptions,
+    ...tabBarOptions
+  }
+
   return (
     <TabBarElement
       {...rest}
       state={state}
       navigation={navigation}
       descriptors={descriptors}
-      tabBarOptions={{ ...defaultTabBarOptions, ...tabBarOptions }}
-      appearence={{ ...defaultAppearence, ...appearence }}
+      tabBarOptions={finalTabBarOptions}
+      appearence={finalAppearence}
     />
   );
 }

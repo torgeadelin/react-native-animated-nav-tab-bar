@@ -1,9 +1,8 @@
 import React from 'react'
 import { Text, TouchableOpacity, Image } from 'react-native'
-import { AnimatedTabBarNavigator } from 'react-native-animated-nav-tab-bar'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { AnimatedTabBarNavigator, DotSize, TabElementDisplayOptions } from 'react-native-animated-nav-tab-bar'
 import Icon from 'react-native-vector-icons/Feather'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 
 const Tabs = AnimatedTabBarNavigator()
 
@@ -23,8 +22,6 @@ const Logo = () => (
 )
 
 const TabBarIcon = (props: any) => {
-
-
 	return (
 		<Icon
 			name={props.name}
@@ -69,7 +66,19 @@ const Profile = () => (
 )
 
 export default () => (
-	<Tabs.Navigator initialRouteName="Home">
+	<Tabs.Navigator initialRouteName="Home"
+		tabBarOptions={{
+			activeTintColor: "#ffffff",
+			inactiveTintColor: "#223322",
+			activeBackgroundColor: "red"
+		}}
+		appearence={{
+			shadow: true,
+			floating: true,
+			whenActiveShow: TabElementDisplayOptions.ICON_ONLY,
+			dotSize: DotSize.SMALL
+		}}
+	>
 		<Tabs.Screen
 			name="Home"
 			component={Home}
@@ -87,7 +96,7 @@ export default () => (
 			name="Discover"
 			component={Discover}
 			options={{
-				tabBarIcon: ({ focused, color, size }) => (
+				tabBarIcon: ({ focused, color }) => (
 					<TabBarIcon
 						focused={focused}
 						tintColor={color}
