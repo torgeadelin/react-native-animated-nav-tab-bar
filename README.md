@@ -15,7 +15,7 @@
 
 ## 📆 Updates / Changelog
 
-_ _January 29 20201_
+- _January 29 2021_
   - Typescript support 👀 including custom enums for some of the appearence properties
   - Added Rollup as a module bundler 
   - Fixed Invalid Hook Call bug #62
