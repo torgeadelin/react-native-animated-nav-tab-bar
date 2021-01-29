@@ -196,7 +196,7 @@ The navigation component takes two main props which help you customise your navi
   - ✅`dotCornerRadius` (default: 100) Corner radius for the active background / dot.
   - ✅`dotSize` (default: "medium") Size of dot for the active tab. Available values `small`, `medium`, `large`.
 
-  **Note! Make sure you reload your view after changing the props. The animation might be stuck while changing them dinamically.**
+  **Note! Make sure you reload your view after changing the props. The animation might be stuck while changing them dynamically.**
 
 ## Troubleshooting
 
