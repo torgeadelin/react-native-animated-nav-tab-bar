@@ -24,7 +24,7 @@ export default function ResourceSavingScene({
   // react-native-screens is buggy on web
   if (screensEnabled?.() && Platform.OS !== 'web') {
       return (
-        <Screen activityState={isVisible ? 1 : 0} style={style} {...rest}>
+        <Screen activityState={isVisible ? 2 : 0} style={style} {...rest}>
           {children}
         </Screen>
       );
