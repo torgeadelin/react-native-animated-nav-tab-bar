@@ -22,10 +22,10 @@
 
 ## Customisation Preview
 
-<div style="display:flex;">
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/demo1.png?raw=true" width="300">
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/demo2.png?raw=true" width="300">
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/demo3.png?raw=true" width="300">
+<div style="display:flex;">config1.png
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images/demo1.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images//demo2.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images/demo3.png?raw=true" width="300">
 </div>
 
 ## Other possible Customisations
@@ -33,22 +33,22 @@
 ### Tab Bar Icons
 
 <div style="display:flex;">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config6.png?raw=true" width="300px" height="135">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config7.png?raw=true" width="300px" height="135">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config8.png?raw=true" width="300px" height="135">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images/config6.png?raw=true" width="300px" height="135">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images/config7.png?raw=true" width="300px" height="135">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images/config8.png?raw=true" width="300px" height="135">
 </div>
 
 ### Layout
 
 <div style="display:flex; justify-content: space-between; align-items: center;">  
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config1.png?raw=true" width="300px" height="220">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config2.png?raw=true" width="300px" height="220">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config3.png?raw=true" width="300px" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images/config1.png?raw=true" width="300px" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images/config2.png?raw=true" width="300px" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images/config3.png?raw=true" width="300px" height="220">
 </div>
 
 <div style="margin-top: 30px; display:flex;">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config4.png?raw=true" width="300" height="220">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config5.png?raw=true" width="300" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images/config4.png?raw=true" width="300" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images/config5.png?raw=true" width="300" height="220">
 </div>
 
 ### Let's get to know you!
