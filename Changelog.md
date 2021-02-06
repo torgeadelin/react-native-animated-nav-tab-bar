@@ -1,0 +1,31 @@
+# Changelog 
+- _February 6 20201_
+  - Fixed #71
+  - Added new changelog to separate file `Changelog.md`
+- _January 29 2021_
+  - Typescript support 👀 including custom enums for some of the appearence properties
+  - Added Rollup as a module bundler 
+  - Fixed Invalid Hook Call bug #62
+  - Fixed `have your wrapper your NavigationContainer` bug. Please update to react-navigation/native 5.9.0, stack 5.13.0, bottom-tabs 5.11.3
+- _October 11 2020_
+  - Updated react-navigation dependencies in example folder to latest
+  - Fixed useScrollToTop bug
+  - Fix Tab bar overlays scrollview content
+  - Added new config for icon button layour/orientation
+- _September 27 2020_
+  - Updated example to rn 0.63
+  - Fixed issue #37 where screens would re-render on every tab change. Also added the lazy option found in the default react navigation tabbar
+  - Fixed default props errors #34 and #35. The component doesn't require any appearence options to work. It will use default style. See docs how to change.
+  - Fixed issue with screen listeners #38 (you can now prevent default)
+  - Fixed small ui glitches
+- _April 19 2020_
+  - In order to run the examples, don't forget to `pod install` after `npm install`
+  - Glitch when using navigation.navigate() has been fixed!
+- _March 11 2020_
+- _June 25 2020_
+  - Upgrade to v3.0
+  - Add more customisations including, floating style, icon configs, label configs, and more.
+  - Fixed issues with changing screen orientation
+  - Fixed animation when provided initial screen
+  - Improved code quality, refactoring
+  - Implement a new [custom navigation](https://reactnavigation.org/docs/custom-navigators) builder

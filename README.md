@@ -14,34 +14,7 @@
 - Bottom Tab Bar Floating style
 
 ## 📆 Updates / Changelog
-
-- _January 29 2021_
-  - Typescript support 👀 including custom enums for some of the appearence properties
-  - Added Rollup as a module bundler 
-  - Fixed Invalid Hook Call bug #62
-  - Fixed `have your wrapper your NavigationContainer` bug. Please update to react-navigation/native 5.9.0, stack 5.13.0, bottom-tabs 5.11.3
-- _October 11 2020_
-  - Updated react-navigation dependencies in example folder to latest
-  - Fixed useScrollToTop bug
-  - Fix Tab bar overlays scrollview content
-  - Added new config for icon button layour/orientation
-- _September 27 2020_
-  - Updated example to rn 0.63
-  - Fixed issue #37 where screens would re-render on every tab change. Also added the lazy option found in the default react navigation tabbar
-  - Fixed default props errors #34 and #35. The component doesn't require any appearence options to work. It will use default style. See docs how to change.
-  - Fixed issue with screen listeners #38 (you can now prevent default)
-  - Fixed small ui glitches
-- _April 19 2020_
-  - In order to run the examples, don't forget to `pod install` after `npm install`
-  - Glitch when using navigation.navigate() has been fixed!
-- _March 11 2020_
-- _June 25 2020_
-  - Upgrade to v3.0
-  - Add more customisations including, floating style, icon configs, label configs, and more.
-  - Fixed issues with changing screen orientation
-  - Fixed animation when provided initial screen
-  - Improved code quality, refactoring
-  - Implement a new [custom navigation](https://reactnavigation.org/docs/custom-navigators) builder
+[Changelog.md](Changelog.md)
 
 ## Animation Preview
 
@@ -50,9 +23,9 @@
 ## Customisation Preview
 
 <div style="display:flex;">
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo1.png?raw=true" width="300">
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo2.png?raw=true" width="300">
-<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo3.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/demo1.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/demo2.png?raw=true" width="300">
+<img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/demo3.png?raw=true" width="300">
 </div>
 
 ## Other possible Customisations
@@ -60,23 +33,27 @@
 ### Tab Bar Icons
 
 <div style="display:flex;">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config6.png?raw=true" width="300px" height="135">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config7.png?raw=true" width="300px" height="135">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config8.png?raw=true" width="300px" height="135">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config6.png?raw=true" width="300px" height="135">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config7.png?raw=true" width="300px" height="135">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config8.png?raw=true" width="300px" height="135">
 </div>
 
 ### Layout
 
 <div style="display:flex; justify-content: space-between; align-items: center;">  
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config1.png?raw=true" width="300px" height="220">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config2.png?raw=true" width="300px" height="220">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config3.png?raw=true" width="300px" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config1.png?raw=true" width="300px" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config2.png?raw=true" width="300px" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config3.png?raw=true" width="300px" height="220">
 </div>
 
 <div style="margin-top: 30px; display:flex;">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config4.png?raw=true" width="300" height="220">
-<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/config5.png?raw=true" width="300" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config4.png?raw=true" width="300" height="220">
+<img style="margin-right: 30px" src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/glitch-fix-refactor/demo_images/config5.png?raw=true" width="300" height="220">
 </div>
+
+### Let's get to know you!
+
+👋 If your app is deployed to AppStore/GooglePlay and you're using this package, send me a DM on Twitter [@torgeadelin](https://twitter.com/torgeadelin)
 
 ## Prerequisites
 
@@ -97,6 +74,10 @@ npm install react-native-animated-nav-tab-bar
 ```
 
 ## Usage
+
+#### Notice
+
+If you updated the package to a new version, don't forget to run `npm run start -- --reset-cache` to have the latest version.
 
 #### Import
 
