@@ -1,13 +1,15 @@
 import * as React from "react";
-import {
-  useNavigationBuilder,
-  createNavigatorFactory,
-  TabRouter,
-} from "@react-navigation/native";
-import TabBarElement from "./TabBarElement";
-import { DotSize, IAppearenceOptions, TabButtonLayout, TabElementDisplayOptions } from './types';
 
-const defaultAppearence: IAppearenceOptions = {
+import { DotSize, IAppearanceOptions, TabButtonLayout, TabElementDisplayOptions } from './types';
+import {
+  TabRouter,
+  createNavigatorFactory,
+  useNavigationBuilder,
+} from "@react-navigation/native";
+
+import TabBarElement from "./TabBarElement";
+
+const defaultAppearance: IAppearanceOptions = {
   topPadding: 10,
   bottomPadding: 10,
   horizontalPadding: 10,
@@ -38,7 +40,7 @@ interface IBottomTabNavigatorProps {
   children: React.ReactNode;
   screenOptions?: any;
   tabBarOptions?: any;
-  appearence: Partial<IAppearenceOptions>;  
+  appearance: Partial<IAppearanceOptions>;  
 }
 
 const BottomTabNavigator = ({
@@ -47,7 +49,7 @@ const BottomTabNavigator = ({
   children,
   screenOptions,
   tabBarOptions,
-  appearence,
+  appearance,
   ...rest
 }: IBottomTabNavigatorProps) => {
   
@@ -58,9 +60,9 @@ const BottomTabNavigator = ({
     screenOptions,
   });
 
-  const finalAppearence: IAppearenceOptions = {
-    ...defaultAppearence,
-    ...appearence
+  const finalAppearance: IAppearanceOptions = {
+    ...defaultAppearance,
+    ...appearance
   }
 
   const finalTabBarOptions = {
@@ -75,7 +77,7 @@ const BottomTabNavigator = ({
       navigation={navigation}
       descriptors={descriptors}
       tabBarOptions={finalTabBarOptions}
-      appearence={finalAppearence}
+      appearance={finalAppearance}
     />
   );
 }

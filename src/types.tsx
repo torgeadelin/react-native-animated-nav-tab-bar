@@ -17,7 +17,7 @@ export enum TabElementDisplayOptions {
     HORIZONTAL = 'horizontal'
   }
   
-  export interface IAppearenceOptions {
+  export interface IAppearanceOptions {
     topPadding: number;
     bottomPadding: number;
     horizontalPadding: number;

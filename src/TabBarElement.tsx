@@ -1,31 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { ScreenContainer } from "react-native-screens";
-
 // UI Components imports
 import {
   Animated,
   BackHandler,
-  View,
   Dimensions,
-  StyleSheet,
   Platform,
+  StyleSheet,
+  View,
 } from "react-native";
 import {
-  TabButton,
   BottomTabBarWrapper,
   Dot,
   Label,
+  TabButton,
 } from "./UIComponents";
-import ResourceSavingScene from "./ResourceSavingScene";
-import { CommonActions, Descriptor, NavigationState, PartialState, TabNavigationState, Route } from "@react-navigation/native";
-import { IAppearenceOptions, TabElementDisplayOptions } from "./types";
+import { CommonActions, Descriptor, NavigationState, PartialState, Route, TabNavigationState } from "@react-navigation/native";
+import { IAppearanceOptions, TabElementDisplayOptions } from "./types";
+import React, { useEffect, useState } from "react";
 
+import ResourceSavingScene from "./ResourceSavingScene";
+import { ScreenContainer } from "react-native-screens";
 
 interface TabBarElementProps {
   state: TabNavigationState<Record<string, object | undefined>>;
   navigation: any;
   descriptors: Record<string, Descriptor<Record<string, object | undefined>, string, TabNavigationState<Record<string, object | undefined>>, any, {}>>;
-  appearence: IAppearenceOptions;
+  appearance: IAppearanceOptions;
   tabBarOptions?: any;
   lazy?: boolean;
 }
@@ -38,7 +37,7 @@ interface TabBarElementProps {
  * @param state Navigation state
  * @param navigation Navigation object
  * @param descriptors
- * @param appearence Object with appearence configurations (see readme)
+ * @param appearance Object with appearance configurations (see readme)
  * @param rest
  *
  * @return function that creates the custom tab bar
@@ -47,7 +46,7 @@ export default ({
   state,
   navigation,
   descriptors,
-  appearence,
+  appearance,
   tabBarOptions,
   lazy,
 }: TabBarElementProps) => {
@@ -66,7 +65,7 @@ export default ({
     dotSize,
     shadow,
     tabButtonLayout,
-  } = appearence;
+  } = appearance;
 
   const {
     activeTintColor,
