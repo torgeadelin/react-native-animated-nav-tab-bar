@@ -22,7 +22,7 @@ export enum TabElementDisplayOptions {
     bottomPadding: number;
     horizontalPadding: number;
     tabBarBackground: string;
-    activeTabBackgrounds?: string;
+    activeTabBackgrounds?: string | string[];
     activeColors?: string | string[];
     floating: boolean;
     dotCornerRadius: number;

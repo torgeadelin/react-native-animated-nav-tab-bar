@@ -16,6 +16,7 @@ import {
 import { CommonActions, Descriptor, NavigationState, PartialState, Route, TabNavigationState } from "@react-navigation/native";
 import { IAppearanceOptions, TabElementDisplayOptions } from "./types";
 import React, { useEffect, useState } from "react";
+import { I18nManager } from "react-native";
 
 import ResourceSavingScene from "./ResourceSavingScene";
 import { ScreenContainer } from "react-native-screens";
@@ -194,7 +195,10 @@ export default ({
    * @param {*} routeIndex
    * @returns React.Node with the button component
    */
-  const createTab = (route: (Route<string> & { state?: NavigationState | PartialState<NavigationState> | undefined;}), routeIndex: number) => {
+  const createTab = (
+    route: (Route<string> & { state?: NavigationState | PartialState<NavigationState> | undefined; }), 
+    routeIndex: number
+  ) => {
     const focused = routeIndex == state.index;
     const { options } = descriptors[route.key];
     const tintColor = focused ? activeColor : inactiveTintColor;
@@ -438,12 +442,20 @@ export default ({
               dotCornerRadius={dotCornerRadius}
               topPadding={topPadding}
               activeTabBackground={activeTabBackground}
-              style={{
-                left: animatedPos.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [prevPos, pos],
-                }),
-              }}
+              style={
+                I18nManager.isRTL
+                  ? {
+                    right: animatedPos.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [prevPos, pos],
+                    }),
+                  }
+                  : {
+                    left: animatedPos.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [prevPos, pos],
+                    }),
+                  }}
               width={width}
               height={height}
             />

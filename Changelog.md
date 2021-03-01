@@ -1,4 +1,9 @@
 # Changelog
+- _March 1 20201_
+  - fixed appearance prop typo (breaking change, so make sure you change it in your code when you update the package)
+  - fixed type for `activeTabBackgrounds` in `types.tsx`
+  - iPhone 12 support
+  - added RTL languages support
 - _February 6 20201_
   - Fixed #71
   - Added new changelog to separate file `Changelog.md`

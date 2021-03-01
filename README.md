@@ -196,7 +196,8 @@ The navigation component takes two main props which help you customize your navi
 
 ## Troubleshooting
 
-- My tab doesn't reflect the `tabStyle` object when I set `paddingTop`. **Solution**: You must provide the same value for `paddingTop` in both `tabStyle` object and `topPadding` property from `appearance`. This is due to the fact that the dot / active background uses position absolute, and the parent's padding top does not affect it.
+- _My tab doesn't reflect the `tabStyle` object when I set `paddingTop`._ **Solution**: You must provide the same value for `paddingTop` in both `tabStyle` object and `topPadding` property from `appearance`. This is due to the fact that the dot / active background uses position absolute, and the parent's padding top does not affect it.
+- _My appearance prop style doesn't apply._ **Solution**: Up until version 3.1.2 there was a typo with the appearance prop. (Instead of appearance it was appearence). It has been fixed in 3.1.3 and you should make sure you're using the right spelling too if you update to 3.1.3. 
 
 ## Contributing
 
