@@ -6,11 +6,11 @@
 # react-native-animated-nav-tab-bar
 
 <img src="https://i.imgur.com/IfQh9UQ.png" width="150" height="150"/>
-<p>A simple and customisable React Native component that implements an animated bottom tab bar for React Navigation v5.</p>
+<p>A simple and customizable React Native component that implements an animated bottom tab bar for React Navigation v5.</p>
 
 - 60FPS
 - Support for iPhoneX
-- Lots of customisation
+- Lots of customization
 - Bottom Tab Bar Floating style
 
 ## 📆 Updates / Changelog
@@ -20,7 +20,7 @@
 
 <img src="https://i.imgur.com/lRG92ds.gif" width="300">
 
-## Customisation Preview
+## Customization Preview
 
 <div style="display:flex;">config1.png
 <img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images/demo1.png?raw=true" width="300">
@@ -28,7 +28,7 @@
 <img src="https://github.com/torgeadelin/react-native-animated-nav-tab-bar/blob/master/demo_images/demo3.png?raw=true" width="300">
 </div>
 
-## Other possible Customisations
+## Other possible Customizations
 
 ### Tab Bar Icons
 
@@ -90,12 +90,12 @@ import {
   DotSize, // optional
   TabElementDisplayOptions, // optional
   TabButtonLayout, // optional
-  IAppearenceOptions // optional
+  IAppearanceOptions // optional
 } from 'react-native-animated-nav-tab-bar'
 
 ```
 
-#### Initialise
+#### Initialize
 
 Then create a navigator using the navigation builder that you imported, and create your navigation! Look at the example below.
 
@@ -164,30 +164,30 @@ export default () =>
 
 ## Documentation
 
-The navigation component takes two main props which help you customise your navigation. `tabBarOptions` is the default prop from React Navigation which you can use to specify different tint colors and more (see available options below). for all the details. The second prop is `appearence`. Here you'll be able to adjust several properties of the tab bar as you wish. See the available properties above.
+The navigation component takes two main props which help you customize your navigation. `tabBarOptions` is the default prop from React Navigation which you can use to specify different tint colors and more (see available options below). for all the details. The second prop is `appearance`. Here you'll be able to adjust several properties of the tab bar as you wish. See the available properties above.
 
 - **tabBarOptions**
 
   - ✅`activeTintColor` - Label and icon color of the active tab item.
   - ✅`inactiveTintColor` - Label and icon color of the inactive tab item.
   - ✅`activeBackgroundColor` - Background color of the active tab item.
-  - ✅`tabStyle` - Style object for the tab wrapper (**Note!** it overrides the properties in `appearence` prop (see below).
+  - ✅`tabStyle` - Style object for the tab wrapper (**Note!** it overrides the properties in `appearance` prop (see below).
   - ✅`labelStyle` - Style object for the tab label text.
 
-- **appearence**
+- **appearance**
 
   - ✅`topPadding` (default: 20) - Space between the tab button and the wrapper (top)
   - ✅`horizontalPadding` (default: 20) - Vertical space between for the tab buttons
-  - ✅`tabBarBackground` (default: "white") - Backgorund color for the wrapper that contains the navigation tabs
+  - ✅`tabBarBackground` (default: "white") - Background color for the wrapper that contains the navigation tabs
   - ✅`shadow` (default: true) - If set to true, the wrapper has a light shadow
 
   - ✅`activeTabBackgrounds` - Array of hex colours for the background of each tab when active. (if not specified, falls back to the `activeBackgroundColor` from `tabBarOptions`)
   - ✅`activeColors` - Array of hex colours for the tint of each tab when active. (if not specified, falls back to the `activeTintColor` from `tabBarOptions`)
 
   - ✅`floating` (default: false) - If set to true, the nav bar will float on top of the current screen. Look at examples above.
-  - ✅`whenActiveShow` (default: "both") Configure the appearence of the active tab. Available values `both`, `label-only`, `icon-only`.
-  - ✅`whenInactiveShow` (default: "icon-only") Configure the appearence of the inactive tabs. Available values `both`, `label-only`, `icon-only`.
-  - ✅`tabButtonLayout` (default: "horizontal") Congifure the layour of the tab button. Available values `vertical`, `horizontal`.
+  - ✅`whenActiveShow` (default: "both") Configure the appearance of the active tab. Available values `both`, `label-only`, `icon-only`.
+  - ✅`whenInactiveShow` (default: "icon-only") Configure the appearance of the inactive tabs. Available values `both`, `label-only`, `icon-only`.
+  - ✅`tabButtonLayout` (default: "horizontal") Configure the layout of the tab button. Available values `vertical`, `horizontal`.
 
   - ✅`dotCornerRadius` (default: 100) Corner radius for the active background / dot.
   - ✅`dotSize` (default: "medium") Size of dot for the active tab. Available values `small`, `medium`, `large`.
@@ -196,7 +196,7 @@ The navigation component takes two main props which help you customise your navi
 
 ## Troubleshooting
 
-- My tab doesn't reflect the `tabStyle` object when I set `paddingTop`. **Solution**: You must provide the same value for `paddingTop` in both `tabStyle` object and `topPadding` property from `appearence`. This is due to the fact that the dot / active background uses position absolute, and the parent's padding top does not affect it.
+- My tab doesn't reflect the `tabStyle` object when I set `paddingTop`. **Solution**: You must provide the same value for `paddingTop` in both `tabStyle` object and `topPadding` property from `appearance`. This is due to the fact that the dot / active background uses position absolute, and the parent's padding top does not affect it.
 
 ## Contributing
 
