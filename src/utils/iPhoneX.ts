@@ -1,21 +1,19 @@
-import { Dimensions, Platform, ScaledSize } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
+
+// Function extracted from:
+// https://github.com/ptelad/react-native-iphone-x-helper
 
 export function isIphoneX() {
-  const dim = Dimensions.get('window');
-  
+  const dimen = Dimensions.get('window');
   return (
-    // This has to be iOS
     Platform.OS === 'ios' &&
-    
-    // Check either, iPhone X or XR
-    (isIPhoneXSize(dim) || isIPhoneXrSize(dim))
+    !Platform.isPad &&
+    !Platform.isTVOS &&
+    ((dimen.height === 780 || dimen.width === 780)
+      || (dimen.height === 812 || dimen.width === 812)
+      || (dimen.height === 844 || dimen.width === 844)
+      || (dimen.height === 896 || dimen.width === 896)
+      || (dimen.height === 926 || dimen.width === 926)
+    )
   );
-}
-
-export function isIPhoneXSize(dim: ScaledSize) {
-  return dim.height == 812 || dim.width == 812;
-}
-
-export function isIPhoneXrSize(dim: ScaledSize) {
-  return dim.height == 896 || dim.width == 896;
 }
