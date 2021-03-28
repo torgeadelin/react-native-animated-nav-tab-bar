@@ -145,7 +145,7 @@ export default ({
     animation(animatedPos).start(() => {
       updatePrevPos();
     });
-    return true;
+    return false;
   };
 
   useEffect(() => {
