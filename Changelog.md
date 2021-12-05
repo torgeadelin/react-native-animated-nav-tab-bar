@@ -1,4 +1,8 @@
 # Changelog
+
+- _December 5 2021_
+  - fixed dependencies which caused the #81 and #62 bugs
+  - fixed typos and styled component units
 - _March 1 20201_
   - fixed appearance prop typo (breaking change, so make sure you change it in your code when you update the package)
   - fixed type for `activeTabBackgrounds` in `types.tsx`
@@ -9,7 +13,7 @@
   - Added new changelog to separate file `Changelog.md`
 - _January 29 2021_
   - Typescript support 👀 including custom enums for some of the appearance properties
-  - Added Rollup as a module bundler 
+  - Added Rollup as a module bundler
   - Fixed Invalid Hook Call bug #62
   - Fixed `have your wrapper your NavigationContainer` bug. Please update to react-navigation/native 5.9.0, stack 5.13.0, bottom-tabs 5.11.3
 - _October 11 2020_

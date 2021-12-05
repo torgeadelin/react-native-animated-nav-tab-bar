@@ -1,25 +1,23 @@
 // UI Components imports
+import { CommonActions, Descriptor, NavigationState, PartialState, Route, TabNavigationState } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
 import {
   Animated,
   BackHandler,
-  Dimensions,
-  Platform,
+  Dimensions, I18nManager, Platform,
   StyleSheet,
-  View,
+  View
 } from "react-native";
+import { ScreenContainer } from "react-native-screens";
+import ResourceSavingScene from "./ResourceSavingScene";
+import { IAppearanceOptions, TabElementDisplayOptions } from "./types";
 import {
   BottomTabBarWrapper,
   Dot,
   Label,
-  TabButton,
+  TabButton
 } from "./UIComponents";
-import { CommonActions, Descriptor, NavigationState, PartialState, Route, TabNavigationState } from "@react-navigation/native";
-import { IAppearanceOptions, TabElementDisplayOptions } from "./types";
-import React, { useEffect, useState } from "react";
-import { I18nManager } from "react-native";
 
-import ResourceSavingScene from "./ResourceSavingScene";
-import { ScreenContainer } from "react-native-screens";
 
 interface TabBarElementProps {
   state: TabNavigationState<Record<string, object | undefined>>;
@@ -33,7 +31,7 @@ interface TabBarElementProps {
 /**
  * @name TabBarElement
  * React Navigation v5 custom navigation (bottom tab bar) builder with an
- * an interactive animation, and easily customisable.
+ * an interactive animation, and easily customizable.
  *
  * @param state Navigation state
  * @param navigation Navigation object
@@ -51,7 +49,7 @@ export default ({
   tabBarOptions,
   lazy,
 }: TabBarElementProps) => {
-  // Apprearence options destruction
+  // Appearance options destruction
   const {
     topPadding,
     bottomPadding,
@@ -93,7 +91,7 @@ export default ({
   // true = Landscape
   const [isPortrait, setIsPortrait] = useState(true);
 
-  // Reset animation when changing screen orietation
+  // Reset animation when changing screen orientation
   Dimensions.addEventListener("change", () => {
     if (
       (isPortrait && !didChangeToPortrait()) ||

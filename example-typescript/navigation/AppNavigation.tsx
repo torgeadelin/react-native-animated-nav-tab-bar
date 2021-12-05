@@ -1,9 +1,9 @@
-import { AnimatedTabBarNavigator, DotSize, TabElementDisplayOptions } from 'react-native-animated-nav-tab-bar'
-import { Image, Text, TouchableOpacity } from 'react-native'
-
-import Icon from 'react-native-vector-icons/Feather'
 import React from 'react'
+import { Image, Text, TouchableOpacity } from 'react-native'
+import { AnimatedTabBarNavigator, DotSize, TabElementDisplayOptions } from 'react-native-animated-nav-tab-bar'
+import Icon from 'react-native-vector-icons/Feather'
 import styled from 'styled-components/native'
+
 
 const Tabs = AnimatedTabBarNavigator()
 

@@ -38,9 +38,9 @@ const BottomTabBarWrapper = Styled.View<IBottomTabBarWrapper>`
       ? p.bottomPadding
       : isIphoneX()
         ? BOTTOM_PADDING_IPHONE_X + p.bottomPadding
-        : p.bottomPadding};
-  padding-top: ${(p) => p.topPadding};
-  padding-horizontal: ${(p) => p.horizontalPadding};
+        : p.bottomPadding}px;
+  padding-top: ${(p) => p.topPadding}px;
+  padding-horizontal: ${(p) => p.horizontalPadding}px;
   background-color: ${(p) => p.tabBarBackground};
 	${(p) => p.shadow && SHADOW};
 
@@ -78,8 +78,8 @@ const TabButton = Styled.TouchableOpacity<ITabButton>`
   };
 	justify-content: center;
 	align-items: center;
-	border-radius: 100;
-	padding-vertical: 10;
+	border-radius: 100px;
+	padding-vertical: 10px;
 	flex-grow: ${(p) =>
     p.focused ? p.labelLength / calculateDotSize(p.dotSize) + 1 : 1};
 `;
@@ -99,7 +99,7 @@ const Label = Styled(Animated.Text)<ILabelProps>`
     (p.whenActiveShow == TabElementDisplayOptions.BOTH || p.whenInactiveShow == TabElementDisplayOptions.BOTH) &&
       p.tabButtonLayout == TabButtonLayout.HORIZONTAL
       ? 8
-      : 0};
+      : 0}px;
 `;
 
 interface IDotProps {
@@ -112,10 +112,10 @@ interface IDotProps {
 
 const Dot = Styled(Animated.View)<IDotProps>`
 	position: absolute;
-	top: ${(p) => p.topPadding};
-	width: ${(p) => p.width};
-	height: ${(p) => p.height};
-	border-radius: ${(p) => p.dotCornerRadius};
+	top: ${(p) => p.topPadding}px;
+	width: ${(p) => p.width}px;
+	height: ${(p) => p.height}px;
+	border-radius: ${(p) => p.dotCornerRadius}px;
 	background-color: ${(p) => p.activeTabBackground};
 	z-index: -1;
 `;
@@ -125,7 +125,7 @@ const SHADOW = css`
   shadow-offset: 0px 5px;
   shadow-opacity: 0.05;
   elevation: 1;
-  shadow-radius: 20;
+  shadow-radius: 20px;
 `;
 
 export { BottomTabBarWrapper, TabButton, Label, Dot, SHADOW };
