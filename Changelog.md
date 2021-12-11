@@ -1,5 +1,7 @@
 # Changelog
 
+- _December 11 2021_
+  - fixed the explicit version for the dependency on react navigation 5.9.0
 - _December 5 2021_
   - fixed dependencies which caused the #81 and #62 bugs
   - fixed typos and styled component units
