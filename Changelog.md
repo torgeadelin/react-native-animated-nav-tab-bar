@@ -1,5 +1,7 @@
 # Changelog
 
+- _December 23 2021_
+  - fixed npm publish with empty dist folder bug
 - _December 11 2021_
   - fixed the explicit version for the dependency on react navigation 5.9.0
 - _December 5 2021_
