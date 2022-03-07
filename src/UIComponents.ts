@@ -93,7 +93,7 @@ interface ILabelProps {
 
 const Label = Styled(Animated.Text)<ILabelProps>`
 	fontSize: ${(p) =>
-    p.whenInactiveShow == TabElementDisplayOptions.BOTH || p.whenActiveShow == TabElementDisplayOptions.BOTH ? "14" : "17"};
+    p.whenInactiveShow == TabElementDisplayOptions.BOTH || p.whenActiveShow == TabElementDisplayOptions.BOTH ? "14" : "17"}px;
 	color: ${(p) => p.activeColor};
 	margin-left: ${(p) =>
     (p.whenActiveShow == TabElementDisplayOptions.BOTH || p.whenInactiveShow == TabElementDisplayOptions.BOTH) &&
