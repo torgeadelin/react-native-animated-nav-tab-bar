@@ -39,6 +39,7 @@ interface IBottomTabNavigatorProps {
   backBehavior?: "history" | "initialRoute" | "order" | "none" | undefined;
   children: React.ReactNode;
   screenOptions?: any;
+  options?: any;
   tabBarOptions?: any;
   appearance: Partial<IAppearanceOptions>;  
 }
@@ -49,6 +50,7 @@ const BottomTabNavigator = ({
   children,
   screenOptions,
   tabBarOptions,
+  options,
   appearance,
   ...rest
 }: IBottomTabNavigatorProps) => {
@@ -67,7 +69,8 @@ const BottomTabNavigator = ({
 
   const finalTabBarOptions = {
     ...defaultTabBarOptions,
-    ...tabBarOptions
+    ...tabBarOptions,
+    ...options
   }
 
   return (
@@ -78,6 +81,7 @@ const BottomTabNavigator = ({
       descriptors={descriptors}
       tabBarOptions={finalTabBarOptions}
       appearance={finalAppearance}
+      lazy={screenOptions.lazy || options.lazy}
     />
   );
 }
