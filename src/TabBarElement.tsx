@@ -1,28 +1,36 @@
 // UI Components imports
-import { CommonActions, Descriptor, NavigationState, PartialState, Route, TabNavigationState } from "@react-navigation/native";
+import {
+  CommonActions,
+  Descriptor,
+  NavigationState,
+  ParamListBase,
+  PartialState,
+  Route,
+  RouteProp,
+  TabNavigationState,
+} from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import {
   Animated,
   BackHandler,
-  Dimensions, I18nManager, Platform,
+  Dimensions,
+  I18nManager,
+  Platform,
   StyleSheet,
-  View
+  View,
 } from "react-native";
 import { ScreenContainer } from "react-native-screens";
 import ResourceSavingScene from "./ResourceSavingScene";
 import { IAppearanceOptions, TabElementDisplayOptions } from "./types";
-import {
-  BottomTabBarWrapper,
-  Dot,
-  Label,
-  TabButton
-} from "./UIComponents";
-
+import { BottomTabBarWrapper, Dot, Label, TabButton } from "./UIComponents";
 
 interface TabBarElementProps {
   state: TabNavigationState<Record<string, object | undefined>>;
   navigation: any;
-  descriptors: Record<string, Descriptor<Record<string, object | undefined>, string, TabNavigationState<Record<string, object | undefined>>, any, {}>>;
+  descriptors: Record<
+    string,
+    Descriptor<any, any, RouteProp<ParamListBase, string>>
+  >;
   appearance: IAppearanceOptions;
   tabBarOptions?: any;
   lazy?: boolean;
@@ -194,7 +202,9 @@ export default ({
    * @returns React.Node with the button component
    */
   const createTab = (
-    route: (Route<string> & { state?: NavigationState | PartialState<NavigationState> | undefined; }), 
+    route: Route<string> & {
+      state?: NavigationState | PartialState<NavigationState> | undefined;
+    },
     routeIndex: number
   ) => {
     const focused = routeIndex == state.index;
@@ -207,15 +217,15 @@ export default ({
       options.tabBarLabel !== undefined
         ? options.tabBarLabel
         : options.title !== undefined
-          ? options.title
-          : route.name;
+        ? options.title
+        : route.name;
 
     const accessibilityLabel =
       options.tabBarAccessibilityLabel !== undefined
         ? options.tabBarAccessibilityLabel
         : typeof label === "string"
-          ? `${label}, tab, ${routeIndex + 1} of ${state.routes.length}`
-          : undefined;
+        ? `${label}, tab, ${routeIndex + 1} of ${state.routes.length}`
+        : undefined;
 
     // Render the label next to the icon
     // only if showLabel is true
@@ -372,7 +382,7 @@ export default ({
       flexDirection: "column",
       justifyContent: "flex-end",
       position: "absolute",
-    }
+    },
   });
 
   const { options } = descriptors[state.routes[state.index].key];
@@ -443,17 +453,18 @@ export default ({
               style={
                 I18nManager.isRTL
                   ? {
-                    right: animatedPos.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [prevPos, pos],
-                    }),
-                  }
+                      right: animatedPos.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [prevPos, pos],
+                      }),
+                    }
                   : {
-                    left: animatedPos.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [prevPos, pos],
-                    }),
-                  }}
+                      left: animatedPos.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [prevPos, pos],
+                      }),
+                    }
+              }
               width={width}
               height={height}
             />
@@ -462,4 +473,4 @@ export default ({
       )}
     </React.Fragment>
   );
-}
+};
