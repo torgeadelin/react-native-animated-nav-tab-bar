@@ -1,5 +1,8 @@
 # Changelog
-
+- _August 1 2023_
+  - support for react navigation v6
+  - add more screen dimensions for iOS checks
+  - update example project to RN 0.72.1
 - _December 23 2021_
   - fixed npm publish with empty dist folder bug
 - _December 11 2021_

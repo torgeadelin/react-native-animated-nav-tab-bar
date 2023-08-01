@@ -1,12 +1,12 @@
 [![npm version](https://badge.fury.io/js/react-native-animated-nav-tab-bar.svg)](https://badge.fury.io/js/react-native-animated-nav-tab-bar)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
-[![HitCount](https://hits.dwyl.com/{username}/{project-name}.svg)](https://hits.dwyl.com/{username}/{project-name})
+[![HitCount](https://hits.dwyl.com/torgeadelin/react-native-animated-nav-tab-bar.svg?style=flat-square)](http://hits.dwyl.com/torgeadelin/react-native-animated-nav-tab-bar)
 ![npm](https://img.shields.io/npm/dw/react-native-animated-nav-tab-bar.svg)
 
 # react-native-animated-nav-tab-bar
 
 <img src="https://i.imgur.com/IfQh9UQ.png" width="150" height="150"/>
-<p>A simple and customizable React Native component that implements an animated bottom tab bar for React Navigation v5.</p>
+<p>A simple and customizable React Native component that implements an animated bottom tab bar for React Navigation v6.</p>
 
 - 60FPS
 - Support for iPhoneX
@@ -57,7 +57,8 @@
 
 ## Prerequisites
 
-❗️In order to use the component, you need to have [React Navigation](https://reactnavigation.org/) v5 installed.
+In order to use the component, you need to have [React Navigation](https://reactnavigation.org/) v6 installed.
+You also need [styled-components](https://styled-components.com/).
 
 ## Installation
 

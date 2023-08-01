@@ -3,10 +3,8 @@ import {
   CommonActions,
   Descriptor,
   NavigationState,
-  ParamListBase,
   PartialState,
   Route,
-  RouteProp,
   TabNavigationState,
 } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
@@ -29,7 +27,7 @@ interface TabBarElementProps {
   navigation: any;
   descriptors: Record<
     string,
-    Descriptor<any, any, RouteProp<ParamListBase, string>>
+    Descriptor<any, any, any>
   >;
   appearance: IAppearanceOptions;
   tabBarOptions?: any;

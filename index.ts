@@ -1,12 +1,16 @@
-import { DotSize, IAppearanceOptions, TabButtonLayout, TabElementDisplayOptions } from './src/types';
+import {
+  DotSize,
+  IAppearanceOptions,
+  TabButtonLayout,
+  TabElementDisplayOptions,
+} from "./src/types";
 
-import AnimatedTabBarNavigator from './src/AnimatedTabBarNavigator';
+import AnimatedTabBarNavigator from "./src/AnimatedTabBarNavigator";
 
 export {
-    AnimatedTabBarNavigator,
-    TabElementDisplayOptions,
-    DotSize,
-    TabButtonLayout,
-    IAppearanceOptions
+  AnimatedTabBarNavigator,
+  TabElementDisplayOptions,
+  DotSize,
+  TabButtonLayout,
+  IAppearanceOptions,
 };
-
