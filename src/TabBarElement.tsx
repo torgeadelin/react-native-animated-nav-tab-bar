@@ -13,6 +13,7 @@ import {
   BackHandler,
   Dimensions,
   I18nManager,
+  NativeEventSubscription,
   Platform,
   StyleSheet,
   View,
@@ -156,14 +157,15 @@ export default ({
     animation(animatedPos).start(() => {
       updatePrevPos();
     });
+    let backHandlerSubscription:NativeEventSubscription|undefined;
 
     if (Platform.OS === "android") {
-      BackHandler.addEventListener("hardwareBackPress", handleBackPress);
+      backHandlerSubscription = BackHandler.addEventListener("hardwareBackPress", handleBackPress);
     }
 
     return () => {
       if (Platform.OS === "android") {
-        BackHandler.removeEventListener("hardwareBackPress", handleBackPress);
+        backHandlerSubscription?.remove();
       }
     };
   }, []);
