@@ -1,5 +1,7 @@
 # Changelog
 
+- _May 26 2025 6pm_
+  - previous version was released without dist folder. This is the same as prev release but correct
 - _May 26 2025_
   - update the new way to remove a listener from BackHandler
 - _August 1 2023_
