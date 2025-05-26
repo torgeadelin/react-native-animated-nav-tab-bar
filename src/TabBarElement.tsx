@@ -13,6 +13,7 @@ import {
   BackHandler,
   Dimensions,
   I18nManager,
+  NativeEventSubscription,
   Platform,
   StyleSheet,
   View,
