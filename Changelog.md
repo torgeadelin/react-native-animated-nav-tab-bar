@@ -1,4 +1,7 @@
 # Changelog
+
+- _May 26 2025_
+  - update the new way to remove a listener from BackHandler
 - _August 1 2023_
   - support for react navigation v6
   - add more screen dimensions for iOS checks
