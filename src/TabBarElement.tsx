@@ -10,13 +10,10 @@ import {
 import React, { useEffect, useState } from "react";
 import {
   Animated,
-  BackHandler,
   Dimensions,
   I18nManager,
-  NativeEventSubscription,
-  Platform,
   StyleSheet,
-  View,
+  View
 } from "react-native";
 import { ScreenContainer } from "react-native-screens";
 import ResourceSavingScene from "./ResourceSavingScene";
@@ -26,10 +23,7 @@ import { BottomTabBarWrapper, Dot, Label, TabButton } from "./UIComponents";
 interface TabBarElementProps {
   state: TabNavigationState<Record<string, object | undefined>>;
   navigation: any;
-  descriptors: Record<
-    string,
-    Descriptor<any, any, any>
-  >;
+  descriptors: Record<string, Descriptor<any, any, any>>;
   appearance: IAppearanceOptions;
   tabBarOptions?: any;
   lazy?: boolean;
@@ -143,40 +137,20 @@ export default ({
     animatedPos.setValue(0);
   };
 
-  /**
-   * Handles physical button press for Android
-   */
-  const handleBackPress = () => {
-    animation(animatedPos).start(() => {
-      updatePrevPos();
-    });
-    return false;
-  };
-
   useEffect(() => {
     animation(animatedPos).start(() => {
       updatePrevPos();
     });
-    let backHandlerSubscription:NativeEventSubscription|undefined;
-
-    if (Platform.OS === "android") {
-      backHandlerSubscription = BackHandler.addEventListener("hardwareBackPress", handleBackPress);
-    }
-
-    return () => {
-      if (Platform.OS === "android") {
-        backHandlerSubscription?.remove();
-      }
-    };
   }, []);
 
   /**
    * Animate whenever the navigation state changes
    */
   useEffect(() => {
-    animation(animatedPos).start(() => {
-      updatePrevPos();
-    });
+    if (state.index !== prevPos) {
+      setPrevPos(state.index);
+      animation(animatedPos).start();
+    }
   }, [state.index]);
 
   // Compute activeBackgroundColor, if array provided, use array otherwise fallback to
@@ -264,10 +238,6 @@ export default ({
      * Emits an event to the navigation
      */
     const onPress = () => {
-      animation(animatedPos).start(() => {
-        updatePrevPos();
-      });
-
       const event = navigation.emit({
         type: "tabPress",
         target: route.key,
@@ -287,10 +257,6 @@ export default ({
      * Emits an event to the navigation
      */
     const onLongPress = () => {
-      animation(animatedPos).start(() => {
-        updatePrevPos();
-      });
-
       navigation.emit({
         type: "tabLongPress",
         target: route.key,
