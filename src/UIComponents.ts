@@ -37,8 +37,8 @@ const BottomTabBarWrapper = Styled.View<IBottomTabBarWrapper>`
     p.floating
       ? p.bottomPadding
       : isIphoneX()
-        ? BOTTOM_PADDING_IPHONE_X + p.bottomPadding
-        : p.bottomPadding}px;
+      ? BOTTOM_PADDING_IPHONE_X + p.bottomPadding
+      : p.bottomPadding}px;
   padding-top: ${(p) => p.topPadding}px;
   padding-horizontal: ${(p) => p.horizontalPadding}px;
   background-color: ${(p) => p.tabBarBackground};
@@ -66,16 +66,14 @@ interface ITabButton {
   dotSize: DotSize;
 }
 
-
 const TabButton = Styled.TouchableOpacity<ITabButton>`
 	flex: 1;
 	flex-direction: ${(p) =>
     p.tabButtonLayout == TabButtonLayout.VERTICAL
       ? "column"
       : p.tabButtonLayout == TabButtonLayout.HORIZONTAL
-        ? "row"
-        : "row"
-  };
+      ? "row"
+      : "row"};
 	justify-content: center;
 	align-items: center;
 	border-radius: 100px;
@@ -93,11 +91,15 @@ interface ILabelProps {
 
 const Label = Styled(Animated.Text)<ILabelProps>`
 	fontSize: ${(p) =>
-    p.whenInactiveShow == TabElementDisplayOptions.BOTH || p.whenActiveShow == TabElementDisplayOptions.BOTH ? "14" : "17"}px;
+    p.whenInactiveShow == TabElementDisplayOptions.BOTH ||
+    p.whenActiveShow == TabElementDisplayOptions.BOTH
+      ? "14"
+      : "17"}px;
 	color: ${(p) => p.activeColor};
 	margin-left: ${(p) =>
-    (p.whenActiveShow == TabElementDisplayOptions.BOTH || p.whenInactiveShow == TabElementDisplayOptions.BOTH) &&
-      p.tabButtonLayout == TabButtonLayout.HORIZONTAL
+    (p.whenActiveShow == TabElementDisplayOptions.BOTH ||
+      p.whenInactiveShow == TabElementDisplayOptions.BOTH) &&
+    p.tabButtonLayout == TabButtonLayout.HORIZONTAL
       ? 8
       : 0}px;
 `;
@@ -117,7 +119,6 @@ const Dot = Styled(Animated.View)<IDotProps>`
 	height: ${(p) => p.height}px;
 	border-radius: ${(p) => p.dotCornerRadius}px;
 	background-color: ${(p) => p.activeTabBackground};
-	z-index: -1;
 `;
 
 const SHADOW = css`

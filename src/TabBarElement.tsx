@@ -26,10 +26,7 @@ import { BottomTabBarWrapper, Dot, Label, TabButton } from "./UIComponents";
 interface TabBarElementProps {
   state: TabNavigationState<Record<string, object | undefined>>;
   navigation: any;
-  descriptors: Record<
-    string,
-    Descriptor<any, any, any>
-  >;
+  descriptors: Record<string, Descriptor<any, any, any>>;
   appearance: IAppearanceOptions;
   tabBarOptions?: any;
   lazy?: boolean;
@@ -157,10 +154,13 @@ export default ({
     animation(animatedPos).start(() => {
       updatePrevPos();
     });
-    let backHandlerSubscription:NativeEventSubscription|undefined;
+    let backHandlerSubscription: NativeEventSubscription | undefined;
 
     if (Platform.OS === "android") {
-      backHandlerSubscription = BackHandler.addEventListener("hardwareBackPress", handleBackPress);
+      backHandlerSubscription = BackHandler.addEventListener(
+        "hardwareBackPress",
+        handleBackPress
+      );
     }
 
     return () => {
@@ -444,8 +444,7 @@ export default ({
             tabBarBackground={tabBarBackground}
             shadow={shadow}
           >
-            {state.routes.map(createTab)}
-            {/* Animated Dot / Background */}
+            {/* Animated Dot / Background - render first so it's behind the tab buttons */}
             <Dot
               dotCornerRadius={dotCornerRadius}
               topPadding={topPadding}
@@ -468,6 +467,7 @@ export default ({
               width={width}
               height={height}
             />
+            {state.routes.map(createTab)}
           </BottomTabBarWrapper>
         </View>
       )}
