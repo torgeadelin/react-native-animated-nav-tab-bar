@@ -10,13 +10,10 @@ import {
 import React, { useEffect, useState } from "react";
 import {
   Animated,
-  BackHandler,
   Dimensions,
   I18nManager,
-  NativeEventSubscription,
-  Platform,
   StyleSheet,
-  View,
+  View
 } from "react-native";
 import { ScreenContainer } from "react-native-screens";
 import ResourceSavingScene from "./ResourceSavingScene";
