@@ -1,17 +1,17 @@
-// UI Components imports
+// TabBarElement.tsx
+
+import React, { useEffect, useState, useRef } from "react";
 import {
   CommonActions,
   Descriptor,
+  Route,
   NavigationState,
   PartialState,
-  Route,
   TabNavigationState,
 } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
 import {
   Animated,
   BackHandler,
-  Dimensions,
   I18nManager,
   NativeEventSubscription,
   Platform,
@@ -23,40 +23,45 @@ import ResourceSavingScene from "./ResourceSavingScene";
 import { IAppearanceOptions, TabElementDisplayOptions } from "./types";
 import { BottomTabBarWrapper, Dot, Label, TabButton } from "./UIComponents";
 
+// ─── Fallback defaults for tabBarOptions ─────────────────────
+const defaultTabBarOptions = {
+  activeTintColor: "black",
+  inactiveTintColor: "black",
+  activeBackgroundColor: "#FFCF64",
+  tabStyle: undefined as any,
+  labelStyle: undefined as any,
+};
+
+type PartialTabBarOptions = Partial<typeof defaultTabBarOptions>;
+
 interface TabBarElementProps {
   state: TabNavigationState<Record<string, object | undefined>>;
   navigation: any;
-  descriptors: Record<
-    string,
-    Descriptor<any, any, any>
-  >;
+  descriptors: Record<string, Descriptor<any, any, any>>;
   appearance: IAppearanceOptions;
-  tabBarOptions?: any;
+  // now a Partial, so `{}` is valid
+  tabBarOptions?: PartialTabBarOptions;
   lazy?: boolean;
 }
 
-/**
- * @name TabBarElement
- * React Navigation v5 custom navigation (bottom tab bar) builder with an
- * an interactive animation, and easily customizable.
- *
- * @param state Navigation state
- * @param navigation Navigation object
- * @param descriptors
- * @param appearance Object with appearance configurations (see readme)
- * @param rest
- *
- * @return function that creates the custom tab bar
- */
-export default ({
+export default function TabBarElement({
   state,
   navigation,
   descriptors,
   appearance,
-  tabBarOptions,
-  lazy,
-}: TabBarElementProps) => {
-  // Appearance options destruction
+  tabBarOptions = {},
+  lazy = true,
+}: TabBarElementProps) {
+  // ─── Merge & destructure tabBarOptions ───────────────────────
+  const {
+    activeTintColor,
+    inactiveTintColor,
+    activeBackgroundColor,
+    tabStyle,
+    labelStyle,
+  } = { ...defaultTabBarOptions, ...tabBarOptions };
+
+  // ─── Appearance options ──────────────────────────────────────
   const {
     topPadding,
     bottomPadding,
@@ -73,235 +78,71 @@ export default ({
     tabButtonLayout,
   } = appearance;
 
-  const {
-    activeTintColor,
-    inactiveTintColor,
-    activeBackgroundColor,
-    tabStyle,
-    labelStyle,
-  } = tabBarOptions;
-
-  // State
+  // ─── Layout & animation state ────────────────────────────────
   const [prevPos, setPrevPos] = useState(horizontalPadding);
   const [pos, setPos] = useState(prevPos);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
-  const [animatedPos] = useState(() => new Animated.Value(1));
-  const [loaded, setLoaded] = useState([state.index]);
+  const animatedPos = useRef(new Animated.Value(1)).current;
+  const [loaded, setLoaded] = useState<number[]>([state.index]);
+  const previousIndex = useRef(state.index);
 
   useEffect(() => {
-    const { index } = state;
-    setLoaded(loaded.includes(index) ? loaded : [...loaded, index]);
-  }, [state]);
-
-  // false = Portrait
-  // true = Landscape
-  const [isPortrait, setIsPortrait] = useState(true);
-
-  // Reset animation when changing screen orientation
-  Dimensions.addEventListener("change", () => {
-    if (
-      (isPortrait && !didChangeToPortrait()) ||
-      (!isPortrait && didChangeToPortrait())
-    ) {
-      setIsPortrait(!isPortrait);
-      animation(animatedPos).start(() => {
-        updatePrevPos();
-      });
+    if (!loaded.includes(state.index)) {
+      setLoaded((prev) => [...prev, state.index]);
     }
-  });
+  }, [state.index, loaded]);
 
-  /**
-   * @returns true if current orientation is Portrait, false otherwise
-   */
-  const didChangeToPortrait = () => {
-    const dim = Dimensions.get("screen");
-    return dim.height >= dim.width;
-  };
+  // ─── Animate *only* when index truly changes ─────────────────
+  useEffect(() => {
+    if (previousIndex.current === state.index) return;
 
-  /**
-   * Dot animation
-   * @param {*} val animation value
-   * @returns Animated.CompositeAnimation
-   * Use .start() to start the animation
-   */
-  const animation = (val: Animated.Value) =>
-    Animated.spring(val, {
+    animatedPos.setValue(0);
+    Animated.spring(animatedPos, {
       toValue: 1,
       useNativeDriver: false,
-    });
-
-  /**
-   * Helper function that updates the previous position
-   * of the tab to calculate the new position.
-   */
-  const updatePrevPos = () => {
-    setPos((pos) => {
+    }).start(() => {
       setPrevPos(pos);
-      return pos;
+      previousIndex.current = state.index;
     });
-    animatedPos.setValue(0);
-  };
+  }, [state.index, pos, animatedPos]);
 
-  /**
-   * Handles physical button press for Android
-   */
-  const handleBackPress = () => {
-    animation(animatedPos).start(() => {
-      updatePrevPos();
-    });
-    return false;
-  };
-
+  // ─── Suppress Android back‐press animation ───────────────────
   useEffect(() => {
-    animation(animatedPos).start(() => {
-      updatePrevPos();
-    });
-    let backHandlerSubscription:NativeEventSubscription|undefined;
-
+    let sub: NativeEventSubscription | undefined;
     if (Platform.OS === "android") {
-      backHandlerSubscription = BackHandler.addEventListener("hardwareBackPress", handleBackPress);
+      sub = BackHandler.addEventListener("hardwareBackPress", () => false);
     }
-
-    return () => {
-      if (Platform.OS === "android") {
-        backHandlerSubscription?.remove();
-      }
-    };
+    return () => sub?.remove();
   }, []);
 
-  /**
-   * Animate whenever the navigation state changes
-   */
-  useEffect(() => {
-    animation(animatedPos).start(() => {
-      updatePrevPos();
-    });
-  }, [state.index]);
-
-  // Compute activeBackgroundColor, if array provided, use array otherwise fallback to
-  // default tabBarOptions property activeBackgroundColor (fallbacks for all unspecified tabs)
+  // ─── Helpers for per‐tab background & tint ───────────────────
   const activeTabBackground = activeTabBackgrounds
     ? Array.isArray(activeTabBackgrounds)
-      ? activeTabBackgrounds[state.index] || activeBackgroundColor
+      ? activeTabBackgrounds[state.index] ?? activeBackgroundColor
       : activeTabBackgrounds
     : activeBackgroundColor;
 
-  // Compute activeBackgroundColor, if array provided, use array otherwise fallback to
-  // default tabBarOptions property activeTintColor (fallbacks for all unspecified tabs)
   const activeColor = activeColors
     ? Array.isArray(activeColors)
-      ? activeColors[state.index] || activeTintColor
+      ? activeColors[state.index] ?? activeTintColor
       : activeColors
     : activeTintColor;
 
-  /**
-   * Create a tab button given a route and route index
-   * @param {*} route
-   * @param {*} routeIndex
-   * @returns React.Node with the button component
-   */
+  // ─── Build each tab button ───────────────────────────────────
   const createTab = (
     route: Route<string> & {
-      state?: NavigationState | PartialState<NavigationState> | undefined;
+      state?: NavigationState | PartialState<NavigationState>;
     },
     routeIndex: number
   ) => {
-    const focused = routeIndex == state.index;
+    const focused = routeIndex === state.index;
     const { options } = descriptors[route.key];
     const tintColor = focused ? activeColor : inactiveTintColor;
-
+    const label = options.tabBarLabel ?? options.title ?? route.name;
     const icon = options.tabBarIcon;
 
-    const label =
-      options.tabBarLabel !== undefined
-        ? options.tabBarLabel
-        : options.title !== undefined
-        ? options.title
-        : route.name;
-
-    const accessibilityLabel =
-      options.tabBarAccessibilityLabel !== undefined
-        ? options.tabBarAccessibilityLabel
-        : typeof label === "string"
-        ? `${label}, tab, ${routeIndex + 1} of ${state.routes.length}`
-        : undefined;
-
-    // Render the label next to the icon
-    // only if showLabel is true
-    const renderLabel = () => {
-      if (typeof label === "string") {
-        return (
-          <Label
-            tabButtonLayout={tabButtonLayout}
-            whenActiveShow={whenActiveShow}
-            whenInactiveShow={whenInactiveShow}
-            style={labelStyle}
-            activeColor={tintColor}
-          >
-            {label}
-          </Label>
-        );
-      } else {
-        return label({ focused, color: activeColor });
-      }
-    };
-
-    /**
-     * Helper function to render the icon
-     */
-    const renderIcon = () => {
-      if (icon === undefined) {
-        return null;
-      }
-
-      let defaultIconSize = 20;
-      return icon({ focused, color: tintColor, size: defaultIconSize });
-    };
-
-    /**
-     * On Press Handler
-     * Emits an event to the navigation
-     */
-    const onPress = () => {
-      animation(animatedPos).start(() => {
-        updatePrevPos();
-      });
-
-      const event = navigation.emit({
-        type: "tabPress",
-        target: route.key,
-        canPreventDefault: true,
-      });
-
-      if (!focused && !event.defaultPrevented) {
-        navigation.dispatch({
-          ...CommonActions.navigate(route.name),
-          target: state.key,
-        });
-      }
-    };
-
-    /**
-     * On Long Press Handler
-     * Emits an event to the navigation
-     */
-    const onLongPress = () => {
-      animation(animatedPos).start(() => {
-        updatePrevPos();
-      });
-
-      navigation.emit({
-        type: "tabLongPress",
-        target: route.key,
-      });
-    };
-
-    /**
-     * Read the position and dimension of a tab.
-     * and update animation state
-     * @param {*} e
-     */
+    // capture layout
     const onLayout = (e: any) => {
       if (focused) {
         setPos(e.nativeEvent.layout.x);
@@ -310,108 +151,112 @@ export default ({
       }
     };
 
-    const labelAndIcon = () => {
-      if (focused) {
-        switch (whenActiveShow) {
-          case TabElementDisplayOptions.BOTH:
-            return (
-              <React.Fragment>
-                <View>{renderIcon()}</View>
-                {renderLabel()}
-              </React.Fragment>
-            );
-          case TabElementDisplayOptions.LABEL_ONLY:
-            return renderLabel();
-          case TabElementDisplayOptions.ICON_ONLY:
-            return renderIcon();
-          default:
-            return (
-              <React.Fragment>
-                <View>{renderIcon()}</View>
-                {renderLabel()}
-              </React.Fragment>
-            );
-        }
-      } else {
-        switch (whenInactiveShow) {
-          case TabElementDisplayOptions.BOTH:
-            return (
-              <React.Fragment>
-                <View>{renderIcon()}</View>
-                {renderLabel()}
-              </React.Fragment>
-            );
-          case TabElementDisplayOptions.LABEL_ONLY:
-            return renderLabel();
-          case TabElementDisplayOptions.ICON_ONLY:
-            return renderIcon();
-          default:
-            return (
-              <React.Fragment>
-                <View>{renderIcon()}</View>
-                {renderLabel()}
-              </React.Fragment>
-            );
-        }
+    // press/long‐press
+    const onPress = () => {
+      const event = navigation.emit({
+        type: "tabPress",
+        target: route.key,
+        canPreventDefault: true,
+      });
+      if (!focused && !event.defaultPrevented) {
+        navigation.dispatch({
+          ...CommonActions.navigate(route.name),
+          target: state.key,
+        });
       }
     };
+    const onLongPress = () =>
+      navigation.emit({
+        type: "tabLongPress",
+        target: route.key,
+      });
+
+    // render icon & label
+    const renderIcon = () =>
+      icon ? icon({ focused, color: tintColor, size: 20 }) : null;
+    const renderLabel = () =>
+      typeof label === "string" ? (
+        <Label
+          tabButtonLayout={tabButtonLayout}
+          whenActiveShow={whenActiveShow}
+          whenInactiveShow={whenInactiveShow}
+          style={labelStyle}
+          activeColor={tintColor}
+        >
+          {label}
+        </Label>
+      ) : (
+        label({ focused, color: tintColor })
+      );
+
+    const content = focused ? (
+      whenActiveShow === TabElementDisplayOptions.ICON_ONLY ? (
+        renderIcon()
+      ) : whenActiveShow === TabElementDisplayOptions.LABEL_ONLY ? (
+        renderLabel()
+      ) : (
+        <>
+          {renderIcon()}
+          {renderLabel()}
+        </>
+      )
+    ) : whenInactiveShow === TabElementDisplayOptions.ICON_ONLY ? (
+      renderIcon()
+    ) : whenInactiveShow === TabElementDisplayOptions.LABEL_ONLY ? (
+      renderLabel()
+    ) : (
+      <>
+        {renderIcon()}
+        {renderLabel()}
+      </>
+    );
 
     return (
       <TabButton
         key={route.key}
         focused={focused}
-        labelLength={label.length}
-        accessibilityLabel={accessibilityLabel}
+        labelLength={String(label).length}
+        accessibilityLabel={options.tabBarAccessibilityLabel}
         onLayout={onLayout}
         onPress={onPress}
         onLongPress={onLongPress}
         dotSize={dotSize}
         tabButtonLayout={tabButtonLayout}
       >
-        {labelAndIcon()}
+        {content}
       </TabButton>
     );
   };
 
-  const { overlayStyle } = StyleSheet.create({
+  // overlay for floating style
+  const overlayStyle = StyleSheet.create({
     overlayStyle: {
       top: 0,
       width: "100%",
       height: "100%",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "flex-end",
       position: "absolute",
+      justifyContent: "flex-end",
     },
-  });
+  }).overlayStyle;
 
+  // should we show the bar?
   const { options } = descriptors[state.routes[state.index].key];
-  const tabBarVisible =
-    options.tabBarVisible == undefined ? true : options.tabBarVisible;
+  const tabBarVisible = options.tabBarVisible ?? true;
+
   return (
-    <React.Fragment>
-      {/* Current Screen */}
-      <View
-        style={{
-          flex: 1,
-          overflow: "hidden",
-        }}
-      >
+    <>
+      {/* Screens */}
+      <View style={{ flex: 1, overflow: "hidden" }}>
         <ScreenContainer style={{ flex: 1 }}>
           {state.routes.map((route, index) => {
             const descriptor = descriptors[route.key];
-            const { unmountOnBlur } = descriptor.options;
             const isFocused = state.index === index;
-
-            if (unmountOnBlur && !isFocused) {
+            if (descriptor.options.unmountOnBlur && !isFocused) {
               return null;
             }
-
             if (lazy && !loaded.includes(index) && !isFocused) {
-              // Don't render a screen if we've never navigated to it
               return null;
             }
-
             return (
               <ResourceSavingScene
                 key={route.key}
@@ -419,10 +264,10 @@ export default ({
                 style={StyleSheet.absoluteFill}
               >
                 <View
-                  accessibilityElementsHidden={!isFocused}
                   importantForAccessibility={
                     isFocused ? "auto" : "no-hide-descendants"
                   }
+                  accessibilityElementsHidden={!isFocused}
                   style={{ flex: 1 }}
                 >
                   {descriptor.render()}
@@ -432,9 +277,10 @@ export default ({
           })}
         </ScreenContainer>
       </View>
+
       {/* Tab Bar */}
       {tabBarVisible && (
-        <View pointerEvents={"box-none"} style={floating && overlayStyle}>
+        <View pointerEvents="box-none" style={floating && overlayStyle}>
           <BottomTabBarWrapper
             style={tabStyle}
             floating={floating}
@@ -445,7 +291,8 @@ export default ({
             shadow={shadow}
           >
             {state.routes.map(createTab)}
-            {/* Animated Dot / Background */}
+
+            {/* Animated Dot */}
             <Dot
               dotCornerRadius={dotCornerRadius}
               topPadding={topPadding}
@@ -471,6 +318,6 @@ export default ({
           </BottomTabBarWrapper>
         </View>
       )}
-    </React.Fragment>
+    </>
   );
-};
+}
